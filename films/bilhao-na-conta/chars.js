@@ -165,7 +165,8 @@ function atlas(table, draw, lanternLit) {
     draw(p1, e1, table[k]); p1.outline(.3);
     for (let y = 0; y < FH; y++) for (let x = 0; x < FW; x++) { const c = p1.get(x, y); if (c) P.set(i * FW + x, y, c); const e = e1.get(x, y); if (e) E.set(i * FW + x, y, e); }
   });
-  const tex = texOf(P.done()), em = texOf(E.done());
+  const smooth = (source) => { const c = document.createElement('canvas'); c.width = source.width * 4; c.height = source.height * 4; const g = c.getContext('2d'); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high'; g.drawImage(source, 0, 0, c.width, c.height); return c; };
+  const tex = texOf(smooth(P.done())), em = texOf(smooth(E.done()));
   for (const t of [tex, em]) { t.repeat.set(1 / n, 1); }
   return { tex, em, names, n, canvas: P.c };
 }

@@ -1,87 +1,101 @@
-// Personagem: pessoa de pijama (pixel art, 3/4 voltada para a direita). Mesmo formato de atlas do chars.js.
+// Personagem 2D ilustrado em alta resolução, integrado a cenários 3D HD-2D.
+// O desenho usa curvas vetoriais Canvas (não pixel art); a placa 2D participa da profundidade 3D.
 import * as THREE from 'three';
-import { ramp, hex, billboard, blob } from './px.js';
-import { atlas, FW, FH, SPX } from './chars.js';
+import { billboard, blob, texOf } from './px.js';
 
-const R = {
-  skin: ramp(['#b87a62', '#dea282', '#f3c9a6', '#ffe2c8'], .22),
-  hair: ramp(['#1e120e', '#3a2216', '#5a3822', '#7a5030'], .22),
-  pj: ramp(['#1f3a6e', '#2f5aa0', '#5b88cf', '#a9c7f2'], .22),
-  pant: ramp(['#16284e', '#233f73', '#35599a', '#4f78bc'], .22),
-  slip: ramp(['#3a1f2a', '#6a3a4a', '#9a5a6a'], .22),
-  blk: ramp(['#1e4a4a', '#2f6e6a', '#4a9a8e', '#7fd0b8'], .22),
-  pillow: ramp(['#9a94a8', '#c4bfd0', '#e8e4f0', '#ffffff'], .22),
-  phone: ramp(['#0b1a2a', '#2a7ad0', '#7fd0ff', '#ffffff'], .22),
-};
-const INK = hex('#1a1016');
-
-function head(P, hx, hy, o = {}) {
-  P.ellipse(hx - 1, hy - .5, 6.8, 7, (x, y, dx, dy) => R.hair(.55 - dy * .2 + dx * .05, x, y));
-  const fx = hx + 2, fy = hy + 1;
-  P.ellipse(fx, fy, 4.7, 5, (x, y, dx, dy) => R.skin(.62 - dx * .1 - dy * .25, x, y));
-  for (let x = Math.floor(fx - 5); x <= fx + 4; x++) { const d = 2 + ((x * 7) % 3 === 0 ? 1 : 0); for (let y = Math.floor(fy - 5.5); y < fy - 5.5 + d + 1; y++) P.set(x, y, R.hair(.5 + (x - fx) * .04, x, y)); }
-  const ey = Math.round(fy), ex1 = Math.round(fx + 2), ex2 = Math.round(fx - 1);
-  if (o.closed) { for (const x of [ex1, ex1 - 1, ex2, ex2 - 1]) P.set(x, ey, INK); }
-  else if (o.blink) { P.set(ex1, ey, R.skin(.2, 0, 0)); P.set(ex2, ey, R.skin(.2, 0, 0)); }
-  else { for (const x of [ex1, ex2]) { P.set(x, ey, INK); P.set(x, ey - 1, INK); } }
-  if (o.open) P.rect(Math.round(fx + 1), ey + 3, 2, 2, hex('#6a2030')); else P.set(Math.round(fx + 1), ey + 3, R.skin(.25, 0, 0));
-  P.set(Math.round(fx + 4), ey + 1, R.skin(.4, 0, 0));
-  P.set(Math.round(fx + 3), ey + 2, hex('#e8907a')); P.set(Math.round(fx - 2), ey + 2, hex('#e8907a'));
-}
-function shirt(P, top, bot) {
-  P.poly([[10, top], [22, top], [24, bot], [9, bot]], (x, y) => { const s = (x - 9) / 15; let v = .62 - s * .4; if (((y - top) >> 1) % 2 === 0) v += .14; return R.pj(v, x, y); });
-}
-function sleeve(P, pts) { pts.forEach(([x, y]) => { P.set(x, y, R.pj(.7, x, y)); P.set(x, y + 1, R.pj(.4, x, y)); }); }
-function phone(P, E, x, y) {
-  P.rect(x, y, 3, 6, R.phone(.08, 0, 0));
-  for (let j = 0; j < 5; j++) for (let i = 0; i < 3; i++) { const c = R.phone(.55 + (i + j) * .08, x + i, y + j); P.set(x + i, y + j, c); E.set(x + i, y + j, c); }
-}
-function arms(P, E, top, arm) {
-  if (arm === 'phone') { sleeve(P, [[21, top + 2], [22, top + 3], [24, top + 3], [25, top + 2], [26, top]]); P.rect(26, top - 2, 2, 2, R.skin(.6, 0, 0)); phone(P, E, 27, top - 6); }
-  else if (arm === 'cheer') { sleeve(P, [[21, top + 1], [22, top - 2], [23, top - 5], [23, top - 8]]); P.rect(22, top - 11, 3, 3, R.skin(.6, 0, 0)); sleeve(P, [[11, top + 1], [10, top - 2], [9, top - 5]]); P.rect(7, top - 9, 3, 3, R.skin(.5, 0, 0)); }
-  else { sleeve(P, [[21, top + 2], [22, top + 4], [22, top + 6], [22, top + 8], [22, top + 10]]); P.rect(21, top + 12, 3, 2, R.skin(.55, 0, 0)); }
-}
-
-function drawHero(P, E, p) {
-  const by = p.bob || 0, pose = p.pose || 'stand', arm = p.arm || 'low';
-  if (pose === 'sleep') {   // cabeça no travesseiro, cobertor até o ombro
-    for (let y = 40; y < 46; y++) for (let x = 1; x < 17; x++) P.set(x, y, R.pillow(.75 - (y - 40) * .08, x, y));
-    head(P, 9, 38 + by, { closed: 1 });
-    P.poly([[14, 40 - by], [34, 38 - by], [34, 49], [14, 49]], (x, y) => { let v = .6 - (x - 14) * .01; if (((x + y) >> 2) % 2 === 0) v += .15; return R.blk(v, x, y); });
-    return;
-  }
-  if (pose === 'sit') {     // sentado na cama, cobertor no colo
-    const top = 21 + by; head(P, 16, 14 + by, p);
-    shirt(P, top, 44); arms(P, E, top, arm);
-    P.poly([[2, 40], [34, 38], [34, 49], [2, 49]], (x, y) => { let v = .62; if (((x + y) >> 2) % 2 === 0) v += .15; if (y < 42) v += .12; return R.blk(v, x, y); });
-    return;
-  }
-  const top = 19 + by, st = p.step ?? -1;
-  const legs = st < 0 ? [[13, 0], [18, 0]] : [[[11, 0], [20, -1]], [[14, -1], [17, 0]], [[20, -1], [11, 0]], [[17, 0], [14, -1]]][st];
-  legs.forEach(([lx, ly], i) => { for (let y = 38; y < 46 + ly; y++) for (let x = lx; x < lx + 4; x++) P.set(x, y, R.pant((i ? .55 : .85) - (x === lx ? .25 : 0), x, y)); P.rect(lx - 1, 46 + ly, 6, 2, R.slip(i ? .4 : .8, 0, 0)); });
-  P.poly([[10, 36], [23, 36], [24, 41], [9, 41]], (x, y) => R.pant(.7 - (x - 9) * .02, x, y));
-  head(P, 16, 11 + by, p); shirt(P, top, 38); arms(P, E, top, arm);
-}
-
-const T = {
-  stand: { pose: 'stand' }, stand1: { pose: 'stand', bob: 1 }, blink: { pose: 'stand', blink: 1 },
-  w0: { pose: 'stand', step: 0 }, w1: { pose: 'stand', step: 1, bob: -1 }, w2: { pose: 'stand', step: 2 }, w3: { pose: 'stand', step: 3, bob: -1 },
-  phone: { pose: 'stand', arm: 'phone' }, phone1: { pose: 'stand', arm: 'phone', bob: 1 },
-  cheer: { pose: 'stand', arm: 'cheer', open: 1 }, cheer1: { pose: 'stand', arm: 'cheer', open: 1, bob: -1 },
-  sleep: { pose: 'sleep' }, sleep1: { pose: 'sleep', bob: 1 },
-  sit: { pose: 'sit' }, sitPhone: { pose: 'sit', arm: 'phone' }, sitPhone1: { pose: 'sit', arm: 'phone', bob: 1 }, sitShock: { pose: 'sit', arm: 'phone', open: 1 },
+const FW = 68, FH = 100, SCALE = 4, SPX = 1 / 60;
+const INK = '#29202a';
+const names = ['sleep','sleep1','sit','sitPhone','sitPhone1','sitShock','stand','stand1','blink','w0','w1','w2','w3','phone','phone1','cheer','cheer1'];
+const states = {
+  sleep:{pose:'sleep'}, sleep1:{pose:'sleep',bob:1}, sit:{pose:'sit'}, sitPhone:{pose:'sit',phone:1},
+  sitPhone1:{pose:'sit',phone:1,bob:1}, sitShock:{pose:'sit',phone:1,shock:1},
+  stand:{pose:'stand'}, stand1:{pose:'stand',bob:1}, blink:{pose:'stand',blink:1},
+  w0:{pose:'walk',step:0},w1:{pose:'walk',step:1},w2:{pose:'walk',step:2},w3:{pose:'walk',step:3},
+  phone:{pose:'stand',phone:1},phone1:{pose:'stand',phone:1,bob:1},cheer:{pose:'stand',cheer:1},cheer1:{pose:'stand',cheer:1,bob:1}
 };
 
-export function makeHero() {
-  const A = atlas(T, drawHero);
-  const mesh = billboard(A.tex, FW * SPX, FH * SPX, { em: A.em, emCol: '#ffffff', emI: 2.2 });
-  const root = new THREE.Group(); root.add(mesh); root.userData.char = 'hero';
-  const sh = blob(.42, .55); sh.position.y = .015; root.add(sh);
+function rounded(ctx,x,y,w,h,r,fill,stroke=INK,lw=1.25){ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.lineWidth=lw;ctx.strokeStyle=stroke;ctx.stroke();}}
+function line(ctx,pts,color=INK,w=2){ctx.beginPath();ctx.moveTo(...pts[0]);for(let i=1;i<pts.length;i++)ctx.lineTo(...pts[i]);ctx.strokeStyle=color;ctx.lineWidth=w;ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke();}
+function makeFrame(ctx,s){
+  ctx.clearRect(0,0,FW,FH); ctx.save();
+  const bob=s.bob||0, pose=s.pose;
+  // Soft illustrated edge light, kept subtle so the character feels inside the scene.
+  const skin='#e8ae8e', hair='#38251f', shirt='#4777b8', pants='#29466f', shoe='#633f4b';
+  if(pose==='sleep'){
+    // Pillow and blanket with rounded illustrated shapes.
+    rounded(ctx,4,70,60,22,8,'#e9e4ef','#aaa3b8',1);
+    ctx.beginPath();ctx.ellipse(28,62+bob,15,14,0,0,Math.PI*2);ctx.fillStyle=hair;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.5;ctx.stroke();
+    ctx.beginPath();ctx.ellipse(32,64+bob,10,10,0,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();ctx.stroke();
+    line(ctx,[[27,65+bob],[30,65+bob]],'#4b302d',1.4); line(ctx,[[35,65+bob],[38,65+bob]],'#4b302d',1.4);
+    rounded(ctx,31,69,34,25,8,'#4c9a91','#244b50',1.5);
+    line(ctx,[[35,74],[59,72]],'#8ac7b8',1.3);
+  } else {
+    const sit=pose==='sit', walk=pose==='walk';
+    // Legs and slippers; separate shapes create a readable 2D silhouette.
+    if(!sit){
+      const step=s.step||0, swing=[-4,3,4,-3][step];
+      rounded(ctx,walk?20+swing:23,69,9,22,'#31517c',INK,1.4);
+      rounded(ctx,walk?38-swing:37,69,9,22,'#263f68',INK,1.4);
+      rounded(ctx,walk?17+swing:20,88,15,7,3,shoe,INK,1.2);
+      rounded(ctx,walk?35-swing:34,88,15,7,3,'#754a56',INK,1.2);
+    } else {
+      rounded(ctx,17,73,38,16,'#31517c',INK,1.4);
+      rounded(ctx,12,85,20,7,3,shoe,INK,1.2);
+    }
+    // Torso, with soft fabric highlight and folds.
+    rounded(ctx,18,38+bob,33,37,9,shirt,INK,1.7);
+    ctx.beginPath();ctx.moveTo(23,44+bob);ctx.quadraticCurveTo(34,49+bob,46,43+bob);ctx.strokeStyle='#83a9d8';ctx.lineWidth=2;ctx.stroke();
+    line(ctx,[[28,53+bob],[30,67+bob]],'#315d98',1.2);
+    // Arms / hands
+    if(s.cheer){
+      line(ctx,[[20,45],[13,35],[10,24]],shirt,7);line(ctx,[[20,45],[13,35],[10,24]],INK,1.5);
+      line(ctx,[[49,45],[56,34],[57,22]],shirt,7);line(ctx,[[49,45],[56,34],[57,22]],INK,1.5);
+      ctx.beginPath();ctx.arc(10,22,4,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();ctx.strokeStyle=INK;ctx.stroke();
+      ctx.beginPath();ctx.arc(57,20,4,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();ctx.stroke();
+    } else if(s.phone){
+      line(ctx,[[47,45],[54,49],[57,40]],shirt,7);line(ctx,[[47,45],[54,49],[57,40]],INK,1.5);
+      ctx.beginPath();ctx.arc(57,38,4,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();ctx.strokeStyle=INK;ctx.stroke();
+      ctx.save();ctx.translate(59,31);ctx.rotate(-.12);rounded(ctx,-3,-7,7,14,1.5,'#172433','#10151d',1);rounded(ctx,-2,-5,5,10,1,'#8bdcff',null);ctx.restore();
+    } else {
+      line(ctx,[[20,45],[14,58],[16,68]],shirt,7);line(ctx,[[20,45],[14,58],[16,68]],INK,1.5);
+      line(ctx,[[48,45],[54,57],[52,68]],shirt,7);line(ctx,[[48,45],[54,57],[52,68]],INK,1.5);
+      ctx.beginPath();ctx.arc(16,69,3.5,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();ctx.strokeStyle=INK;ctx.stroke();
+      ctx.beginPath();ctx.arc(52,69,3.5,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();ctx.stroke();
+    }
+    // Neck and head
+    rounded(ctx,29,32+bob,11,12,4,skin,INK,1.1);
+    ctx.beginPath();ctx.ellipse(34,22+bob,14,16,0,0,Math.PI*2);ctx.fillStyle=hair;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.6;ctx.stroke();
+    ctx.beginPath();ctx.ellipse(35,25+bob,11,12,0,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();ctx.stroke();
+    // Fringe
+    ctx.beginPath();ctx.moveTo(22,21+bob);ctx.quadraticCurveTo(25,4+bob,40,8+bob);ctx.quadraticCurveTo(50,13+bob,47,24+bob);ctx.quadraticCurveTo(40,17+bob,34,19+bob);ctx.quadraticCurveTo(28,27+bob,22,21+bob);ctx.fillStyle=hair;ctx.fill();ctx.strokeStyle=INK;ctx.stroke();
+    if(s.blink){line(ctx,[[30,25+bob],[33,25+bob]],'#392a2a',1.5);line(ctx,[[39,25+bob],[42,25+bob]],'#392a2a',1.5);}
+    else {ctx.fillStyle='#28212a';ctx.beginPath();ctx.ellipse(31,25+bob,1.35,2,0,0,Math.PI*2);ctx.ellipse(40,25+bob,1.35,2,0,0,Math.PI*2);ctx.fill();}
+    ctx.beginPath();ctx.arc(36,32+bob, s.shock?2.5:1.5,0,Math.PI*2);ctx.fillStyle='#9c4d55';ctx.fill();
+    ctx.fillStyle='rgba(232,132,125,.42)';ctx.beginPath();ctx.ellipse(27,30+bob,3,1.7,0,0,Math.PI*2);ctx.ellipse(44,30+bob,3,1.7,0,0,Math.PI*2);ctx.fill();
+  }
+  ctx.restore();
+}
+
+function createAtlas(){
+  const canvas=document.createElement('canvas');canvas.width=FW*SCALE*names.length;canvas.height=FH*SCALE;
+  const c=canvas.getContext('2d');c.scale(SCALE,SCALE);
+  names.forEach((name,i)=>{c.save();c.translate(i*FW,0);makeFrame(c,states[name]);c.restore();});
+  const tex=texOf(canvas,{mip:true});tex.magFilter=THREE.LinearFilter;tex.minFilter=THREE.LinearMipmapLinearFilter;tex.generateMipmaps=true;tex.anisotropy=8;tex.premultiplyAlpha=true;
+  tex.repeat.set(1/names.length,1);
+  return {tex,names,n:names.length};
+}
+
+export function makeHero(){
+  const A=createAtlas();
+  const mesh=billboard(A.tex,FW*SPX,FH*SPX,{shadow:true,receive:false});
+  // O plano 2D recebe a iluminação do cenário e participa da profundidade/oclusão 3D.
+  const root=new THREE.Group();root.add(mesh);root.userData.char='hero';
+  const sh=blob(.62,.42,'#17121b');sh.position.y=.018;sh.position.z=.015;root.add(sh);
+  const contact=new THREE.Mesh(new THREE.CircleGeometry(.22,32),new THREE.MeshBasicMaterial({color:'#17121b',transparent:true,opacity:.22,depthWrite:false}));contact.rotation.x=-Math.PI/2;contact.position.y=.025;root.add(contact);
   return {
-    root, mesh, atlas: A, shadowBlob: sh,
-    frame(name) { const i = A.names.indexOf(name); if (i < 0) throw new Error('frame ' + name); A.tex.offset.x = A.em.offset.x = i / A.n; },
-    face(cam, flip = false) { root.rotation.y = Math.atan2(cam.position.x - root.position.x, cam.position.z - root.position.z); mesh.scale.x = flip ? -1 : 1; },
-    // posição do celular na mão (aprox.), em metros no mundo
-    phonePos(sit = false) { const v = new THREE.Vector3((28.5 - FW / 2) * SPX, (FH - (sit ? 20 : 17)) * SPX, .1); v.applyAxisAngle(new THREE.Vector3(0, 1, 0), root.rotation.y); return v.add(root.position); },
+    root,mesh,atlas:A,shadowBlob:sh,
+    frame(name){const i=A.names.indexOf(name);if(i<0)throw new Error('frame '+name);A.tex.offset.x=i/A.n;},
+    face(cam,flip=false){root.rotation.y=Math.atan2(cam.position.x-root.position.x,cam.position.z-root.position.z);mesh.scale.x=flip?-1:1;},
+    phonePos(sit=false){const v=new THREE.Vector3(.40,(FH-(sit?40:39))*SPX,.10);v.applyAxisAngle(new THREE.Vector3(0,1,0),root.rotation.y);return v.add(root.position);}
   };
 }

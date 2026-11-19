@@ -89,11 +89,11 @@ export function buildTown() {
   const sparkles = particles(30, (i, t, o) => { const life = (t * .5 + i * .31) % 1, a = i * 2.4; o.x = 7.4 + Math.cos(a) * (.3 + life * .5); o.y = .5 + life * 1.8; o.z = -2.0 + Math.sin(a) * (.3 + life * .5); o.a = ss(seg(t, T.saveIn, T.saveIn + 1)) * (1 - life); o.s = .05; o.r = .5; o.g = .9; o.b = 1; }, { soft: 1 });
   scene.add(sparkles);
 
-  const camP = track([[26, [HX1 + 2.6, 4.6, 6.4]], [29.5, [HX1 - 1, 8.5, 12]], [37, [-5.5, 19, 25]]]);
-  const camL = track([[26, [HX1 + .1, 1.2, -2.2]], [29.5, [HX1 - 3, 1, -3]], [37, [-1.8, 0, -5.5]]]);
+  const camP = track([[13, [HX1 + 2.6, 4.6, 6.4]], [30, [HX1 - 1, 8.5, 12]], [60, [-5.5, 19, 25]]]);
+  const camL = track([[13, [HX1 + .1, 1.2, -2.2]], [30, [HX1 - 3, 1, -3]], [60, [-1.8, 0, -5.5]]]);
 
   function update(t, shot, cam, post) {
-    const lt = t - shot.a, mood = seg(t, 13, 37);
+    const lt = t - shot.a, mood = seg(t, 13, 60);
     for (const k of ['top', 'mid', 'hor']) SK.u[k].value.lerpColors(cA[k], cB[k], mood);
     sun.intensity = lerp(1.9, 2.8, mood);
     // Personagem
@@ -102,13 +102,13 @@ export function buildTown() {
     hp.x = hx; hero.root.position.set(hx, 0, -2.2);
     let f;
     if (shot.id === 'rua') f = walking ? ['w0', 'w1', 'w2', 'w3'][Math.floor(t * 9) % 4] : (t < T.walkA ? 'stand' : (Math.floor(t * 2) % 2 ? 'stand1' : 'stand'));
-    else f = t >= 30.3 ? (Math.floor(t * 3) % 2 ? 'cheer1' : 'cheer') : (Math.floor(t * 1.6) % 2 ? 'stand1' : 'stand');
+    else f = t >= 55.3 ? (Math.floor(t * 3) % 2 ? 'cheer1' : 'cheer') : (Math.floor(t * 1.6) % 2 ? 'stand1' : 'stand');
     hero.frame(f);
     // Câmera
     if (shot.id === 'rua') {
       cam.fov = 40; cam.position.set(hx + 1.6, 7.4, 9.0); cam.lookAt(hx + .3, .9, -2.8);
     } else {
-      cam.fov = lerp(38, 48, seg(t, 28, 37)); cam.position.set(...camP(t)); cam.lookAt(...camL(t));
+      cam.fov = lerp(38, 48, seg(t, 50, 60)); cam.position.set(...camP(t)); cam.lookAt(...camL(t));
     }
     cam.updateProjectionMatrix(); hero.face(cam);
     // Luzes que acendem uma a uma

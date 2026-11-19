@@ -1,42 +1,37 @@
 [
  {
-  "t0": 0.15,
-  "t1": 3.05,
-  "text": "Você acorda. O celular vibra."
+  "t0": 0.2,
+  "t1": 6.2,
+  "text": "Imagine acordar numa manhã qualquer, pegar o celular e descobrir que alguém acabou de depositar um bilhão de reais na sua conta."
  },
  {
-  "t0": 7.8,
-  "t1": 10.2,
-  "text": "Calma. Confere de novo."
- },
- {
-  "t0": 10.7,
+  "t0": 7,
   "t1": 13,
-  "text": "Não é erro. É real."
+  "text": "Você olha uma vez. Pisca. Olha de novo. R$ 1.000.000.000. Sim, nove zeros. Você acabou de entrar para o clube dos bilionários."
  },
  {
-  "t0": 13.5,
-  "t1": 16.5,
-  "text": "Primeira missão: pijama mesmo."
+  "t0": 14,
+  "t1": 21,
+  "text": "Mas você não perde tempo. Ainda de pijama, começa a fazer aquilo que todo mundo sonha: resolver todos os seus problemas financeiros."
  },
  {
-  "t0": 17,
-  "t1": 19.9,
-  "text": "Pagar a conta de todo mundo."
+  "t0": 22,
+  "t1": 29,
+  "text": "Paga as dívidas da família, compra casas para seus pais e ajuda pessoas que nunca tiveram uma oportunidade."
  },
  {
-  "t0": 20.4,
-  "t1": 23.599999999999998,
-  "text": "A cidade inteira acorda sorrindo."
+  "t0": 31,
+  "t1": 38,
+  "text": "A cidade inteira começa a mudar. Portas se abrem, casas são reformadas e muita gente ganha uma nova chance."
  },
  {
-  "t0": 26.4,
-  "t1": 29.599999999999998,
-  "text": "Mas o saldo não muda quem você é."
+  "t0": 40,
+  "t1": 47,
+  "text": "Só que existe um detalhe: dinheiro pode comprar conforto, viagens e liberdade. Mas não compra tempo, saúde ou pessoas verdadeiras."
  },
  {
-  "t0": 30.3,
-  "t1": 33.5,
-  "text": "E você, qual seria a primeira coisa?"
+  "t0": 49,
+  "t1": 58,
+  "text": "Então me conta: se amanhã você acordasse com um bilhão na conta, qual seria a primeira coisa que faria? Pense bem!"
  }
 ]

@@ -51,7 +51,7 @@ export class PX {
 
 export function texOf(canvas, o = {}) {
   const t = new THREE.CanvasTexture(canvas);
-  t.magFilter = THREE.NearestFilter; t.minFilter = o.mip ? THREE.NearestMipmapLinearFilter : THREE.LinearFilter; t.generateMipmaps = !!o.mip;
+  t.magFilter = THREE.LinearFilter; t.minFilter = o.mip ? THREE.NearestMipmapLinearFilter : THREE.LinearFilter; t.generateMipmaps = !!o.mip;
   t.colorSpace = o.linear ? THREE.NoColorSpace : THREE.SRGBColorSpace;
   if (o.repeat) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(o.repeat[0], o.repeat[1]); }
   t.anisotropy = 4;
@@ -59,7 +59,7 @@ export function texOf(canvas, o = {}) {
 }
 
 // Colouring: pick from a colour ramp by luminance + Bayer dither (the "hand-picked tone steps" feel of pixel art)
-export function ramp(cols, dz = .45) { const C = cols.map(c => typeof c === 'string' ? hex(c) : c); return (v, x, y) => { v = Math.max(0, Math.min(.9999, v)) * (C.length - 1); const i = Math.floor(v); let f = v - i; f = dz >= 1 ? f : Math.max(0, Math.min(1, (f - .5) / dz + .5)); return C[Math.min(C.length - 1, i + (bayer(x, y) < f ? 1 : 0))]; }; }
+export function ramp(cols, dz = .45) { const C = cols.map(c => typeof c === 'string' ? hex(c) : c); return (v) => { v = Math.max(0, Math.min(.9999, v)) * (C.length - 1); const i = Math.floor(v), f = v - i, a = C[i], b = C[Math.min(C.length - 1, i + 1)]; return [0,1,2].map(k => Math.round(a[k] + (b[k] - a[k]) * f)); }; }
 
 // —— Common surface textures —— (w,h in pixels; PPM pixels per metre)
 export function woodPlanks(w, h, o = {}) {

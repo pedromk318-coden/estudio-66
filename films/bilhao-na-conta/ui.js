@@ -70,7 +70,7 @@ function bank(t) {
 }
 // —— Ouro no canto (HUD de RPG), mostra o saldo durante a caminhada ——
 function hud(t) {
-  const a = ss(seg(t, 13.4, 14.2)) * (1 - ss(seg(t, 33.0, 33.6)));
+  const a = ss(seg(t, 17.4, 18.2)) * (1 - ss(seg(t, 48.0, 48.6)));
   if (a <= 0) return;
   plate(100, 290, 440, 74, a);
   g.save(); g.globalAlpha = a; g.fillStyle = '#e2c27c'; g.beginPath(); g.arc(142, 327, 15, 0, 7); g.fill(); g.fillStyle = '#a8803e'; g.fillRect(138, 317, 8, 20);

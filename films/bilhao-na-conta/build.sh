@@ -34,7 +34,7 @@ cd "$LIB"
 node "$HERE/tools/export_story.mjs"
 
 # 3) Quadros de conferência (falham cedo se houver erro de página) e vídeo
-node core/render/still.mjs "$HERE" 1 5 9 16 22 30 --size 1080x1920 --out "$HERE/stills"
+node core/render/still.mjs "$HERE" 1 5 9 16 22 30 45 55 --size 1080x1920 --out "$HERE/stills"
 node core/render/video.mjs "$HERE" --fps 24 --workers 2 --size 1080x1920 --out "$HERE/out/video.mp4"
 
 # 4) Áudio, legendas (.srt) e master final (-14 LUFS)

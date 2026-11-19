@@ -1,5 +1,5 @@
 {
- "DUR": 37,
+ "DUR": 60,
  "SHOTS": [
   {
    "id": "quarto",
@@ -9,12 +9,12 @@
   {
    "id": "rua",
    "a": 13,
-   "b": 26
+   "b": 50
   },
   {
    "id": "fim",
-   "a": 26,
-   "b": 37
+   "a": 50,
+   "b": 60
   }
  ],
  "T": {
@@ -37,81 +37,74 @@
   "countB": 7.6,
   "shock": 7.6,
   "shockEnd": 9.4,
-  "walkA": 13.4,
-  "walkB": 25.4,
+  "walkA": 17,
+  "walkB": 48,
   "lights": [
-   14.5,
-   15.5,
-   16.5,
-   17.6,
-   18.7,
-   19.9
+   28,
+   30,
+   32,
+   34,
+   36,
+   38
   ],
   "lamps": [
-   14.1,
-   16.1,
-   18.1,
-   20.1
+   27,
+   33,
+   39,
+   43
   ],
-  "saveIn": 27,
-  "endCard": 33.9
+  "saveIn": 51.5,
+  "endCard": 54.2
  },
  "VO": [
   {
    "id": "v1",
-   "t": 0.15,
-   "d": 2.9,
-   "who": "VOCÊ",
-   "sub": "Você acorda. O celular vibra."
+   "t": 0.2,
+   "d": 6,
+   "who": "NARRADOR",
+   "sub": "Imagine acordar numa manhã qualquer, pegar o celular e descobrir que alguém acabou de depositar um bilhão de reais na sua conta."
   },
   {
    "id": "v2",
-   "t": 7.8,
-   "d": 2.4,
-   "who": "VOCÊ",
-   "sub": "Calma. Confere de novo."
+   "t": 7,
+   "d": 6,
+   "who": "NARRADOR",
+   "sub": "Você olha uma vez. Pisca. Olha de novo. R$ 1.000.000.000. Sim, nove zeros. Você acabou de entrar para o clube dos bilionários."
   },
   {
    "id": "v3",
-   "t": 10.7,
-   "d": 2.3,
-   "who": "VOCÊ",
-   "sub": "Não é erro. É real."
+   "t": 14,
+   "d": 7,
+   "who": "NARRADOR",
+   "sub": "Mas você não perde tempo. Ainda de pijama, começa a fazer aquilo que todo mundo sonha: resolver todos os seus problemas financeiros."
   },
   {
    "id": "v4",
-   "t": 13.5,
-   "d": 3,
-   "who": "VOCÊ",
-   "sub": "Primeira missão: pijama mesmo."
+   "t": 22,
+   "d": 7,
+   "who": "NARRADOR",
+   "sub": "Paga as dívidas da família, compra casas para seus pais e ajuda pessoas que nunca tiveram uma oportunidade."
   },
   {
    "id": "v5",
-   "t": 17,
-   "d": 2.9,
-   "who": "VOCÊ",
-   "sub": "Pagar a conta de todo mundo."
+   "t": 31,
+   "d": 7,
+   "who": "NARRADOR",
+   "sub": "A cidade inteira começa a mudar. Portas se abrem, casas são reformadas e muita gente ganha uma nova chance."
   },
   {
    "id": "v6",
-   "t": 20.4,
-   "d": 3.2,
-   "who": "VOCÊ",
-   "sub": "A cidade inteira acorda sorrindo."
+   "t": 40,
+   "d": 7,
+   "who": "NARRADOR",
+   "sub": "Só que existe um detalhe: dinheiro pode comprar conforto, viagens e liberdade. Mas não compra tempo, saúde ou pessoas verdadeiras."
   },
   {
    "id": "v7",
-   "t": 26.4,
-   "d": 3.2,
-   "who": "VOCÊ",
-   "sub": "Mas o saldo não muda quem você é."
-  },
-  {
-   "id": "v8",
-   "t": 30.3,
-   "d": 3.2,
-   "who": "VOCÊ",
-   "sub": "E você, qual seria a primeira coisa?"
+   "t": 49,
+   "d": 9,
+   "who": "NARRADOR",
+   "sub": "Então me conta: se amanhã você acordasse com um bilhão na conta, qual seria a primeira coisa que faria? Pense bem!"
   }
  ]
 }
