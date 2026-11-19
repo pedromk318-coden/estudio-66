@@ -1,0 +1,97 @@
+name: Render film in the cloud
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_path:
+        description: "Project folder (example: films/my-video)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+
+      - name: Validate project folder
+        env:
+          PROJECT_PATH: ${{ inputs.project_path }}
+        shell: bash
+        run: |
+          case "$PROJECT_PATH" in
+            films/*) ;;
+            *) echo "::error::Project must be inside films/"; exit 1 ;;
+          esac
+          test -f "$PROJECT_PATH/build.sh" || {
+            echo "::error::Missing $PROJECT_PATH/build.sh"; exit 1;
+          }
+
+      - name: Install system tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          ffmpeg -version | head -n 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: biblioteca/package-lock.json
+
+      - name: Install Node packages and headless Chromium
+        working-directory: biblioteca
+        run: |
+          npm ci
+          node node_modules/playwright-core/cli.js install --with-deps chromium-headless-shell
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: biblioteca/requirements.txt
+
+      - name: Install Python packages and FFmpeg 7 binary
+        run: |
+          python -m venv biblioteca/.venv
+          biblioteca/.venv/bin/python -m pip install --upgrade pip
+          biblioteca/.venv/bin/python -m pip install -r biblioteca/requirements.txt
+          python -m pip install imageio-ffmpeg==0.6.0
+          sudo ln -sf "$(python -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" /usr/local/bin/ffmpeg
+          ffmpeg -version | head -n 1
+
+      - name: Render MP4
+        env:
+          LIB: ${{ github.workspace }}/biblioteca
+          PROJECT_PATH: ${{ inputs.project_path }}
+          LEMO_ANGLE: swiftshader
+          RENDER_SLOTS: "1"
+        shell: bash
+        run: |
+          chmod +x "$PROJECT_PATH/build.sh"
+          "$PROJECT_PATH/build.sh"
+          find "$PROJECT_PATH" -type f -name '*.mp4' -size +0c -print -quit | grep -q . || {
+            echo "::error::No non-empty MP4 was produced"; exit 1;
+          }
+
+      - name: Upload rendered video and supporting files
+        uses: actions/upload-artifact@v4
+        with:
+          name: estudio-66-${{ github.run_number }}
+          path: |
+            ${{ inputs.project_path }}/*.mp4
+            ${{ inputs.project_path }}/**/*.mp4
+            ${{ inputs.project_path }}/**/*.jpg
+            ${{ inputs.project_path }}/**/*.srt
+            ${{ inputs.project_path }}/TREATMENT.md
+            ${{ inputs.project_path }}/CREDITS
+            ${{ inputs.project_path }}/legenda.txt
+          if-no-files-found: error
+          retention-days: 7
