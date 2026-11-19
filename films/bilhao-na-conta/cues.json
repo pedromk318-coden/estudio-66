@@ -1,0 +1,42 @@
+[
+ {
+  "t0": 0.15,
+  "t1": 3.05,
+  "text": "Você acorda. O celular vibra."
+ },
+ {
+  "t0": 7.8,
+  "t1": 10.2,
+  "text": "Calma. Confere de novo."
+ },
+ {
+  "t0": 10.7,
+  "t1": 13,
+  "text": "Não é erro. É real."
+ },
+ {
+  "t0": 13.5,
+  "t1": 16.5,
+  "text": "Primeira missão: pijama mesmo."
+ },
+ {
+  "t0": 17,
+  "t1": 19.9,
+  "text": "Pagar a conta de todo mundo."
+ },
+ {
+  "t0": 20.4,
+  "t1": 23.599999999999998,
+  "text": "A cidade inteira acorda sorrindo."
+ },
+ {
+  "t0": 26.4,
+  "t1": 29.599999999999998,
+  "text": "Mas o saldo não muda quem você é."
+ },
+ {
+  "t0": 30.3,
+  "t1": 33.5,
+  "text": "E você, qual seria a primeira coisa?"
+ }
+]

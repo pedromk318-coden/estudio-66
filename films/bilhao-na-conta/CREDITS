@@ -1,0 +1,3 @@
+Imagens: renderizadas em three.js com o motor do estilo HD-2D da biblioteca Lemo-Opuscar (MIT, texto em biblioteca/LICENSE). Personagem, cenário e texturas desenhados por código (pixel art procedural), sem material de terceiros.
+Fontes (OFL 1.1), baixadas dos pacotes públicos @fontsource no momento do render: Cinzel e Cormorant Garamond.
+Áudio: trilha, ambiente e efeitos gerados por código (core/audio/sfx.py da biblioteca). Sem voz.
