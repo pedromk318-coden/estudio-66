@@ -66,12 +66,15 @@ export function drawVignetteGrain(ctx,t,opts={}){
   ctx.restore();
 }
 
+const shutterBuffers = new WeakMap();
+
 // Re-render deterministic neighboring instants and blend them to simulate a camera shutter.
 // Keep samples at 2 by default: 3+ can multiply software-render cost quickly.
 export function renderShutter(ctx,t,draw,opts={}){
   const samples=Math.max(1,Math.min(4,opts.samples??2)),shutter=opts.shutter??.42;
   if(samples===1){draw(ctx,t);return;}
-  const canvas=document.createElement('canvas');canvas.width=ctx.canvas.width;canvas.height=ctx.canvas.height;
+  let canvas=shutterBuffers.get(ctx.canvas);
+  if(!canvas){canvas=document.createElement('canvas');canvas.width=ctx.canvas.width;canvas.height=ctx.canvas.height;shutterBuffers.set(ctx.canvas,canvas);}
   const c=canvas.getContext('2d',{alpha:false});
   ctx.save();ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.fillStyle='#080b13';ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
   for(let i=0;i<samples;i++){
