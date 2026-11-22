@@ -112,16 +112,20 @@ function scene(c,t){
   const local=shot===0?t:shot===1?t-3.2:t-6.7;
   c.fillStyle='#090c16';c.fillRect(0,0,W,H);
   const draw=()=>{drawSoftFocus(c,()=>background(c,t),2.2);microphone(c,t);singer(c,t,shot);};
-  if(shot===0)camera(c,t,{x:0,y:30,zoom:1.10+ease(t,0,3.2)*.035,shake:.7},draw);
-  else if(shot===1)camera(c,t,{x:-95,y:-12,zoom:1.02+Math.sin(local*1.4)*.012,shake:.8},draw);
-  else camera(c,t,{x:15,y:0,zoom:1.13+ease(local,0,3.3)*.05,shake:1.1},draw);
+  if(shot===0)camera(c,t,{x:0,y:35,zoom:1.13+ease(t,0,3.2)*.075,shake:2.1},draw);
+  else if(shot===1)camera(c,t,{x:-145+Math.sin(local*1.8)*24,y:-18,zoom:1.08+Math.sin(local*1.4)*.025,shake:3.2},draw);
+  else camera(c,t,{x:25+Math.sin(local*1.3)*18,y:-8,zoom:1.18+ease(local,0,3.3)*.09,shake:2.5},draw);
   // Layeres atmosféricas e chuva visível na janela.
   drawParticles(c,haze,t,{color:'#ffca91',alpha:.16,glow:24,drift:.35});
   drawParticles(c,dust,t,{color:'#ffe2b8',alpha:.48,glow:10,drift:.7});
-  drawParticles(c,embers,t,{color:'#ff9b62',alpha:.55,glow:18,drift:1.3});
-  drawRain(c,t,{count:52,intensity:.38,color:'rgba(181,218,236,.42)',seed:23});
+  drawParticles(c,embers,t,{color:'#ff9b62',alpha:.62,glow:20,drift:1.3});
+  drawBokeh(c,bokeh,t,{alpha:.34,blur:22,colors:['#ffd18a','#ff9e83','#91c8ee']});
+  drawRain(c,t,{count:68,intensity:.48,color:'rgba(181,218,236,.48)',seed:23});
+  drawLightShafts(c,t,{alpha:.13,count:3,originX:465,originY:190});
   // Halo de palco e leve flare que respira.
-  glow(c,455,225,300,'#ffd38a',.10+.035*Math.sin(t*3));
+  glow(c,455,225,300,'#ffd38a',.13+.045*Math.sin(t*3));
+  drawLensFlare(c,463,218,t,{strength:.22,color:'#ffd28a'});
+  if(shot===1){drawMotionStreaks(c,t,{alpha:.16,intensity:.75,seed:53});}
   if(shot===1){c.save();c.globalAlpha=.24;line(c,[[0,1110],[W,1110]],'rgba(255,201,139,.4)',5);c.restore();}
   drawVignetteGrain(c,t,{grain:.028,vignette:.48});
 }
