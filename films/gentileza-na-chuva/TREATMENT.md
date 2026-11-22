@@ -1,18 +1,19 @@
-# Uma pequena gentileza — tratamento visual
+# Uma pequena gentileza — tratamento visual revisado
 
-## Três estruturas consideradas
-1. Um atendente fecha o café e encontra um gatinho encharcado na porta.
-2. Um gatinho tenta alcançar o calor de uma vitrine enquanto a chuva aumenta.
-3. Um atendente percebe uma pequena silhueta na janela e improvisa um abrigo.
+## Estrutura
+1. O atendente termina o expediente enquanto a chuva bate na janela.
+2. Um gato molhado aparece junto à porta; o atendente percebe e se aproxima.
+3. Ele oferece água e um pano seco; o gato relaxa e a luz quente acolhe o quadro.
 
-## Estrutura escolhida
-A opção 1: descoberta, aproximação e acolhimento em três momentos visuais claros, sem narração. A história é compreensível apenas pela atuação e pelos objetos.
+## Direção visual
+- Duração: 10 segundos; vertical 9:16, 1080 × 1920, 24 fps.
+- Cartoon 2D ilustrado, com silhuetas orgânicas e desenho de personagem detalhado — não pictogramas nem bonecos feitos apenas de círculos e retângulos.
+- Personagens com anatomia consistente, mãos/patas legíveis, cabelo/pelo em mechas, olhos com brilho, nariz, boca, orelhas, roupas com costuras, dobras, bolsos e materiais.
+- Cenário em planos: parede de tijolos, prateleiras com objetos, janela com chuva e luzes desfocadas, balcão de madeira e piso com textura.
+- Acabamento: sombras de contato, luz quente volumétrica simulada, reflexos, partículas discretas, textura fina de papel/grão e vinheta suave.
+- Movimento: respiração, inclinação de cabeça, cauda, gesto de oferecer água, chuva e poeira animadas; câmera faz aproximação lenta.
+- Contraste de temperatura: exterior azul frio; interior âmbar acolhedor.
+- Sem narração. Legendas cinéticas curtas em três momentos.
 
-## Direção
-- Duração: 10 segundos.
-- Formato: vertical 9:16, 1080 × 1920, 24 fps.
-- Linguagem: cartoon 2D recortado, com personagens desenhados em formas orgânicas e contornos expressivos.
-- Referência estética: personagens flat ilustrados, cenário com camadas, luz quente cinematográfica, profundidade de campo simulada, textura fina e sombras suaves.
-- Câmera: plano médio de apresentação, aproximação lenta no encontro e close emocional no final.
-- Som: sem voz; trilha/efeitos podem ser adicionados em edição posterior.
-- Texto na tela: “ÀS VEZES, TUDO QUE ALGUÉM PRECISA É UM POUCO DE CALOR.”
+## Critério de qualidade
+O personagem precisa parecer uma ilustração de animação editorial/TV 2D, com detalhes de desenho e materiais visíveis em tela cheia. Formas geométricas podem apoiar a construção, mas nunca devem ser o acabamento final.
