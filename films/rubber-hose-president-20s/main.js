@@ -165,8 +165,8 @@ function drawCharacter(t,pose={}){
  T.shape(T.spline([[24,-355],[52,-374],[54,-342],[20,-338]],true,5),{fill:P.dark,lw:3});
  T.pop();
 }
-function titleCard(a,b,t,idx){
- const p=clamp((t-a)/.22);
+function titleCard(a,b,t,start){
+ const p=clamp((t-start)/.22);
  if(p<=0)return;
  g.save();g.globalAlpha=Math.min(1,p);
  const y=210;
@@ -214,7 +214,7 @@ function render(t){
  drawCharacter(t,pose);
  if(sc.name==='public') { /* crowd silhouettes already live in the foreground layer */ }
  // big animated action word / scene caption
- titleCard(sc.line,sc.sub,t,idx);
+ titleCard(sc.line,sc.sub,t,sc.a);
  particles(t,sc.name);
  // quick whip blur on scene changes, not a slow dissolve
  const edge=Math.min(local,sc.b-local);
