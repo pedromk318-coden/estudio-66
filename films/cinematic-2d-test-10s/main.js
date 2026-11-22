@@ -1,7 +1,7 @@
-import {makeParticleField,drawParticles,drawRain,glow,drawVignetteGrain,renderShutter,camera,smooth,lerp} from '/core/render/cinematic2d.js';
+import {makeParticleField,drawParticles,drawRain,glow,drawVignetteGrain,renderShutter,camera,smooth,lerp,drawSoftFocus,drawLightShafts,drawBokeh,drawMotionStreaks,drawLensFlare} from '/core/render/cinematic2d.js';
 const W=1080,H=1920,canvas=document.querySelector('#film'),ctx=canvas.getContext('2d',{alpha:false});
 const TAU=Math.PI*2,clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
-const dust=makeParticleField(150,77,1.2),embers=makeParticleField(36,92,1.0),haze=makeParticleField(28,41,1.8);
+const dust=makeParticleField(190,77,1.2),embers=makeParticleField(48,92,1.0),haze=makeParticleField(42,41,1.8),bokeh=makeParticleField(28,119,1.7);
 const rr=(c,x,y,w,h,r,fill,stroke=null,lw=3)=>{c.beginPath();c.roundRect(x,y,w,h,r);c.fillStyle=fill;c.fill();if(stroke){c.lineWidth=lw;c.strokeStyle=stroke;c.stroke();}};
 const ell=(c,x,y,rx,ry,fill,stroke=null,lw=3)=>{c.beginPath();c.ellipse(x,y,rx,ry,0,0,TAU);c.fillStyle=fill;c.fill();if(stroke){c.lineWidth=lw;c.strokeStyle=stroke;c.stroke();}};
 const line=(c,pts,color,width=5)=>{c.beginPath();c.moveTo(...pts[0]);for(let i=1;i<pts.length;i++)c.lineTo(...pts[i]);c.strokeStyle=color;c.lineWidth=width;c.lineCap='round';c.lineJoin='round';c.stroke();};
@@ -52,10 +52,10 @@ function microphone(c,t){
 }
 function singer(c,t,pose=0){
   c.save();
-  const breath=Math.sin(t*2.4)*5, sway=Math.sin(t*1.7)*7;
+  const breath=Math.sin(t*2.4)*9, sway=Math.sin(t*1.7)*15;
   const walk=pose===1?1-ease(t,3.2,6.7):0;
-  const walkX=-200*walk,stepBob=pose===1?Math.abs(Math.sin(t*8))*4:0;
-  c.translate(520+sway+walkX,stepBob);
+  const walkX=-250*walk,stepBob=pose===1?Math.abs(Math.sin(t*8))*10:Math.sin(t*3.2)*3;
+  c.translate(520+sway+walkX,stepBob);c.rotate(Math.sin(t*2.0)*.018);
   // Sombra de contato no palco.
   ell(c,0,1650,235,43,'rgba(5,8,16,.48)');
   // Pernas e botas.
@@ -69,16 +69,16 @@ function singer(c,t,pose=0){
   line(c,[[150,920],[105,1100],[145,1290]],'rgba(12,24,42,.42)',12);
   for(let i=0;i<6;i++){ell(c,6,1040+i*42,5,5,'#d8c4a0');line(c,[[-20,1060+i*42],[30,1060+i*42]],'rgba(210,222,231,.2)',3);}
   // Braços em pose de palco, com articulações suaves.
-  const arm=Math.sin(t*2.5)*.12;
-  c.save();c.translate(-135,875);c.rotate(-.35+arm);
+  const arm=Math.sin(t*3.2)*.32;
+  c.save();c.translate(-135,875);c.rotate(-.48+arm);
   path(c,p=>{p.moveTo(-35,0);p.quadraticCurveTo(-80,75,-60,185);p.lineTo(-20,215);p.quadraticCurveTo(8,125,12,35);p.closePath();},grad(c,-70,0,90,220,[[0,'#b77a61'],[.5,'#8f554c'],[1,'#653b3d']]),'#402b35',7);
   ell(c,-5,205,27,31,'#c98b70');c.restore();
-  c.save();c.translate(125,875);c.rotate(.4+arm*.6);
+  c.save();c.translate(125,875);c.rotate(.55-arm*.75);
   path(c,p=>{p.moveTo(-24,0);p.quadraticCurveTo(15,50,30,145);p.lineTo(8,190);p.lineTo(-32,178);p.lineTo(-48,55);p.closePath();},grad(c,-48,0,80,190,[[0,'#9c6254'],[.5,'#77464a'],[1,'#4e3540']]),'#392a38',7);
   ell(c,-5,180,27,30,'#bd8068');c.restore();
   // Pescoço e rosto com volumes.
   rr(c,-49,740,98,112,28,grad(c,-49,740,100,112,[[0,'#c78a6d'],[.6,'#9a5c50'],[1,'#663b3e']]));
-  c.save();c.translate(0,650+breath*.25);c.rotate(Math.sin(t*1.3)*.025);
+  c.save();c.translate(0,650+breath*.25);c.rotate(Math.sin(t*1.3)*.055);
   path(c,p=>{p.moveTo(-125,-15);p.quadraticCurveTo(-128,-135,-80,-175);p.quadraticCurveTo(-15,-220,70,-178);p.quadraticCurveTo(130,-130,122,-10);p.quadraticCurveTo(110,110,0,125);p.quadraticCurveTo(-110,112,-125,-15);p.closePath();},grad(c,-125,-180,250,310,[[0,'#e1a27d'],[.3,'#c98067'],[.72,'#a75f55'],[1,'#78444a']]),'#4b3039',10);
   // Sombra lateral e bochechas.
   ell(c,-87,12,32,45,'rgba(91,47,51,.2)');ell(c,73,12,32,45,'rgba(255,191,144,.18)');
@@ -111,20 +111,24 @@ function scene(c,t){
   const shot=t<3.2?0:t<6.7?1:2;
   const local=shot===0?t:shot===1?t-3.2:t-6.7;
   c.fillStyle='#090c16';c.fillRect(0,0,W,H);
-  const draw=()=>{background(c,t);microphone(c,t);singer(c,t,shot);};
-  if(shot===0)camera(c,t,{x:0,y:30,zoom:1.10+ease(t,0,3.2)*.035,shake:.7},draw);
-  else if(shot===1)camera(c,t,{x:-95,y:-12,zoom:1.02+Math.sin(local*1.4)*.012,shake:.8},draw);
-  else camera(c,t,{x:15,y:0,zoom:1.13+ease(local,0,3.3)*.05,shake:1.1},draw);
+  const draw=()=>{drawSoftFocus(c,()=>background(c,t),2.2);microphone(c,t);singer(c,t,shot);};
+  if(shot===0)camera(c,t,{x:0,y:35,zoom:1.13+ease(t,0,3.2)*.075,shake:2.1},draw);
+  else if(shot===1)camera(c,t,{x:-145+Math.sin(local*1.8)*24,y:-18,zoom:1.08+Math.sin(local*1.4)*.025,shake:3.2},draw);
+  else camera(c,t,{x:25+Math.sin(local*1.3)*18,y:-8,zoom:1.18+ease(local,0,3.3)*.09,shake:2.5},draw);
   // Layeres atmosféricas e chuva visível na janela.
   drawParticles(c,haze,t,{color:'#ffca91',alpha:.16,glow:24,drift:.35});
   drawParticles(c,dust,t,{color:'#ffe2b8',alpha:.48,glow:10,drift:.7});
-  drawParticles(c,embers,t,{color:'#ff9b62',alpha:.55,glow:18,drift:1.3});
-  drawRain(c,t,{count:52,intensity:.38,color:'rgba(181,218,236,.42)',seed:23});
+  drawParticles(c,embers,t,{color:'#ff9b62',alpha:.62,glow:20,drift:1.3});
+  drawBokeh(c,bokeh,t,{alpha:.34,blur:22,colors:['#ffd18a','#ff9e83','#91c8ee']});
+  drawRain(c,t,{count:68,intensity:.48,color:'rgba(181,218,236,.48)',seed:23});
+  drawLightShafts(c,t,{alpha:.13,count:3,originX:465,originY:190});
   // Halo de palco e leve flare que respira.
-  glow(c,455,225,300,'#ffd38a',.10+.035*Math.sin(t*3));
+  glow(c,455,225,300,'#ffd38a',.13+.045*Math.sin(t*3));
+  drawLensFlare(c,463,218,t,{strength:.22,color:'#ffd28a'});
+  if(shot===1){drawMotionStreaks(c,t,{alpha:.16,intensity:.75,seed:53});}
   if(shot===1){c.save();c.globalAlpha=.24;line(c,[[0,1110],[W,1110]],'rgba(255,201,139,.4)',5);c.restore();}
   drawVignetteGrain(c,t,{grain:.028,vignette:.48});
 }
 window.DUR=10;
-window.render=t=>renderShutter(ctx,t,(target,st)=>scene(target,st),{samples:2,shutter:.5});
+window.render=t=>renderShutter(ctx,t,(target,st)=>scene(target,st),{samples:(t>3.15&&t<6.85)?3:2,shutter:(t>3.15&&t<6.85)?.62:.46});
 window.READY=true;

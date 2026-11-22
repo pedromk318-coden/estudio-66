@@ -22,4 +22,4 @@ Este é o padrão técnico reutilizável para curtas 2D ilustrados. O helper `bi
 - Canvas 2D é a rota robusta em runners sem GPU; WebGL/Three.js pode usar GPU quando disponível, mas o runner pode cair em SwiftShader.
 - Cachear texturas, padrões, gradientes e geometria; evitar gerar ruído pesado em cada frame.
 - Começar com 2 workers no render e ajustar conforme memória disponível.
-- Motion blur temporal, DOF e partículas são opcionais por plano, não filtros globais obrigatórios.
+- Motion blur temporal, DOF, streaks e partículas são aplicados por plano conforme a ação, não como filtros globais constantes. Preserve o personagem em foco e suavize apenas os planos de fundo. Evite DOF muito forte, flare que esconda o rosto e motion blur em tomadas paradas. Em software rendering, use 2 amostras como padrão e reserve 3 para trechos curtos de movimento.

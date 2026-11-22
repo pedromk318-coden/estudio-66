@@ -91,3 +91,87 @@ export function camera(ctx,t,opts,draw){
   ctx.save();ctx.translate(width/2+sx,height/2+sy);ctx.scale(zoom,zoom);
   ctx.translate(-width/2+x+panX,-height/2+y+panY);draw();ctx.restore();
 }
+
+
+// Soft-focus pass for distant set dressing. Keep foreground character crisp.
+export function drawSoftFocus(ctx,draw,blur=2){
+  const amount=clamp(blur,0,14);
+  if(amount<=0){draw();return;}
+  ctx.save();ctx.filter=`blur(${amount}px)`;draw();ctx.restore();
+}
+
+// Wide, animated volumetric-style beams built from gradients (software-render friendly).
+export function drawLightShafts(ctx,t,opts={}){
+  const {width=1080,height=1920,alpha=.16,color='#ffd59a',count=3,originX=width*.48,originY=170}=opts;
+  ctx.save();ctx.globalCompositeOperation='screen';
+  for(let i=0;i<count;i++){
+    const sway=Math.sin(t*.55+i*1.7)*24;
+    const spread=210+i*105, drift=sway+(i-count/2)*125;
+    const g=ctx.createLinearGradient(originX+drift,originY,originX+drift-spread, height*.72);
+    g.addColorStop(0,`rgba(255,225,174,${alpha*.8})`);
+    g.addColorStop(.38,color);
+    g.addColorStop(1,'rgba(255,210,150,0)');
+    ctx.globalAlpha=.7;
+    ctx.fillStyle=g;ctx.beginPath();
+    ctx.moveTo(originX+drift-24,originY);
+    ctx.lineTo(originX+drift+28,originY);
+    ctx.lineTo(originX+drift+spread,height*.72);
+    ctx.lineTo(originX+drift-spread*.55,height*.72);
+    ctx.closePath();ctx.fill();
+  }
+  ctx.restore();
+}
+
+// Defocused practical lights in the foreground/background to reinforce lens depth.
+export function drawBokeh(ctx,field,t,opts={}){
+  const {width=1080,height=1920,alpha=.28,blur=18,colors=['#ffd18a','#ff9e83','#91c8ee']}=opts;
+  ctx.save();ctx.globalCompositeOperation='screen';
+  for(let i=0;i<Math.min(field.items.length,28);i++){
+    const p=field.items[i],x=fract(p.x+p.drift*t/width*.12)*width;
+    const y=fract(p.y-p.speed*t/height*.10)*height;
+    const r=(9+p.size*9)*p.z;
+    const pulse=.72+.28*Math.sin(t*1.8+p.phase);
+    const g=ctx.createRadialGradient(x,y,0,x,y,r*2.8);
+    g.addColorStop(0,colors[i%colors.length]);
+    g.addColorStop(.22,colors[i%colors.length]);
+    g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.globalAlpha=p.alpha*alpha*pulse;
+    ctx.filter=`blur(${Math.max(2,blur*p.z)}px)`;
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*2.8,0,TAU);ctx.fill();
+  }
+  ctx.restore();
+}
+
+// Short directional streaks are reserved for transitions and fast gestures.
+export function drawMotionStreaks(ctx,t,opts={}){
+  const {width=1080,height=1920,alpha=.22,intensity=1,seed=53}=opts;
+  const r=seeded(seed);ctx.save();ctx.globalCompositeOperation='screen';
+  for(let i=0;i<22;i++){
+    const x0=r()*width,y0=r()*height,phase=r()*TAU;
+    const active=.5+.5*Math.sin(t*8+phase);
+    const len=(35+r()*150)*intensity;
+    const x=x0+Math.sin(t*2.1+phase)*26;
+    const y=y0+Math.cos(t*1.7+phase)*18;
+    const g=ctx.createLinearGradient(x-len,y-len*.16,x+len,y+len*.16);
+    g.addColorStop(0,'rgba(255,255,255,0)');
+    g.addColorStop(.5,'rgba(255,225,185,.55)');
+    g.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.globalAlpha=alpha*active;ctx.strokeStyle=g;ctx.lineWidth=.8+r()*2;
+    ctx.beginPath();ctx.moveTo(x-len,y-len*.16);ctx.lineTo(x+len,y+len*.16);ctx.stroke();
+  }
+  ctx.restore();
+}
+
+// Soft anamorphic flare around a practical lamp; never covers the whole frame.
+export function drawLensFlare(ctx,x,y,t,opts={}){
+  const {width=1080,height=1920,strength=.3,color='#ffd28a'}=opts;
+  const pulse=.88+.12*Math.sin(t*2.4);
+  ctx.save();ctx.globalCompositeOperation='screen';ctx.globalAlpha=strength*pulse;
+  const halo=ctx.createRadialGradient(x,y,0,x,y,150);
+  halo.addColorStop(0,'rgba(255,245,215,.7)');halo.addColorStop(.12,color);halo.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=halo;ctx.fillRect(x-150,y-150,300,300);
+  const beam=ctx.createLinearGradient(0,y, width,y);
+  beam.addColorStop(0,'rgba(255,225,175,0)');beam.addColorStop(x/width,'rgba(255,225,175,.32)');
+  beam.addColorStop(Math.min(1,x/width+.08),'rgba(255,240,210,.06)');beam.addColorStop(1,'rgba(255,225,175,0)');
+  ctx.fillStyle=beam;ctx.fillRect(0,y-2,width,4);ctx.restore();
+}
