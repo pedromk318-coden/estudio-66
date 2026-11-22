@@ -100,7 +100,11 @@ function prop(scene,t){
   for(let i=0;i<18;i++){let x=(i*97+t*170)%1200-60,y=250+(i*173)%1100;g.save();g.translate(x,y);g.rotate(Math.sin(t*5+i)*.8);rounded(-22,-35,44,70,4,'#d7d3ca','#34322f',3);g.restore();}
   g.strokeStyle='#ddd9d0';g.lineWidth=10;g.beginPath();g.moveTo(60,1290);g.quadraticCurveTo(260,1170,420,1300);g.quadraticCurveTo(620,1420,800,1280);g.stroke();
  }else if(scene==='public'){
-  for(let i=0;i<5;i++){let x=100+i*210;g.fillStyle='#252421';g.beginPath();g.arc(x,1250,42,0,TAU);g.fill();rounded(x-52,1290,104,180,32,'#aaa69e','#272623',5);rounded(x-75,1080,150,110,8,'#e3dfd5','#2a2926',5);g.fillStyle='#34322f';g.font='bold 23px Georgia';g.textAlign='center';g.fillText(i%2?'CADÊ?':'AÇÃO!',x,1140);}
+  // banners and a softly painted public-square railing; the crowd is animated as fully drawn characters below
+  g.fillStyle='#4b4944';g.fillRect(0,1450,W,28);
+  for(let x=0;x<W;x+=135){g.fillStyle='#b8b4aa';g.fillRect(x,1370,12,110);}
+  rounded(345,1040,390,120,18,'#d8d4ca','#393733',6);
+  g.fillStyle='#373531';g.font='bold 32px Georgia';g.textAlign='center';g.fillText('O POVO OBSERVA',540,1110);
  }else if(scene==='end'){
   rounded(130,1320,820,280,28,'#aaa69e','#292825',9);
   for(let i=0;i<4;i++){rounded(190+i*180,1380,140,110,8,'#e6e2d8','#3b3935',4);}
@@ -211,8 +215,11 @@ function render(t){
  if(sc.name==='crisis'){pose.x=540+Math.sin(local*8)*95;pose.y=1530+Math.sin(local*15)*25;pose.handL=[-260,-330+Math.sin(local*12)*80];pose.handR=[250,-340+Math.cos(local*11)*90];pose.eyes='wide';pose.mouth='wavy';pose.stride=1.25;pose.lean=Math.sin(local*8)*.15;}
  if(sc.name==='public'){pose.x=540;pose.handL=[-230,-300];pose.handR=[235,-300];pose.mouth='open';pose.eyes='wide';pose.brow='up';}
  if(sc.name==='end'){pose.y=1540;pose.stride=0;pose.handL=[-220,-260];pose.handR=[220,-260];pose.mouth=phase>.58?'grin':'smile';pose.eyes='open';pose.brow='up';}
+ if(sc.name==='public'){
+  drawCharacter(t+.18,{x:170,y:1575,scale:.54,stride:.22,handL:[-130,-190],handR:[135,-240],mouth:'o',eyes:'wide',brow:'up'});
+  drawCharacter(t+.37,{x:910,y:1575,scale:.54,stride:.18,handL:[-130,-240],handR:[135,-190],mouth:'smile',eyes:'open',brow:'up'});
+ }
  drawCharacter(t,pose);
- if(sc.name==='public') { /* crowd silhouettes already live in the foreground layer */ }
  // big animated action word / scene caption
  titleCard(sc.line,sc.sub,t,sc.a);
  particles(t,sc.name);
