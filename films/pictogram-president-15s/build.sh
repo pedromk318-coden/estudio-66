@@ -8,6 +8,7 @@ OUT="$HERE/out"
 mkdir -p "$OUT"
 rm -rf "$D"
 cp -R "$SRC" "$D"
+sh "$D/tools/fetch_fonts.sh"
 # Replace only the demo timeline; keep the native Pictogram Motion drawing engine.
 cat > "$D/film.js" <<'JSCODE'
 (function () {
