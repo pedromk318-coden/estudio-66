@@ -19,12 +19,11 @@ s = s.replace("export const DUR = 53.0;", "export const DUR = 15.0;")
 s = s.replace("end: bar(17),", "end: 14.2,")
 s = re.sub(r"export const VO = \[.*?\n\];", """export const VO = [];""", s, flags=re.S)
 p.write_text(s)
-(d / "lines.json").write_text(json.dumps([
-  {"id":"v1","text":"Do fundo do oceano, uma nova ilha começa a nascer.","voice":"af_sky","speed":0.9}
-], ensure_ascii=False, indent=2) + "\n")
+(d / "lines.json").write_text("[]\n")
 
 p = d / "main.js"
 s = p.read_text().replace("const W = 1920, H = 1080,", "const W = 1080, H = 1920,")
+s = s.replace("await document.fonts.load('600 78px \"Josefin Sans\"'); await document.fonts.load('300 34px \"Josefin Sans\"'); await document.fonts.load('600 44px Quicksand'); await document.fonts.load('500 30px Quicksand');", "await Promise.allSettled([document.fonts.load('600 78px \"Josefin Sans\"'), document.fonts.load('300 34px \"Josefin Sans\"'), document.fonts.load('600 44px Quicksand'), document.fonts.load('500 30px Quicksand')]);")
 p.write_text(s)
 p = d / "index.html"
 s = p.read_text().replace('width="1920" height="1080"', 'width="1080" height="1920"')
