@@ -17,9 +17,7 @@ p = d / "story.js"
 s = p.read_text()
 s = s.replace("export const DUR = 53.0;", "export const DUR = 15.0;")
 s = s.replace("end: bar(17),", "end: 14.2,")
-s = re.sub(r"export const VO = \[.*?\n\];", """export const VO = [
-  { id: 'v1', t: 3.4, text: 'Do fundo do oceano, uma nova ilha começa a nascer.' },
-];""", s, flags=re.S)
+s = re.sub(r"export const VO = \[.*?\n\];", """export const VO = [];""", s, flags=re.S)
 p.write_text(s)
 (d / "lines.json").write_text(json.dumps([
   {"id":"v1","text":"Do fundo do oceano, uma nova ilha começa a nascer.","voice":"af_sky","speed":0.9}
