@@ -34,7 +34,7 @@ export async function openDemo(dir, { w = 1920, h = 1080, q = '', warnings = fal
     if (m.type() === 'error' && /^Failed to load resource/.test(t)) return;   // printed with its URL by the response event below
     if (m.type() === 'error' || (warnings && m.type() === 'warning')) note('[page] ' + t.slice(0, 300));
   });
-  page.on('pageerror', e => { console.error('[pageerror]', e.message); process.exit(1); });   // stop on an error during rendering, so no broken film is produced
+  page.on('pageerror', e => { console.error('[pageerror]', e.stack || e.message); process.exit(1); });   // stop on an error during rendering, so no broken film is produced
   page.on('response', r => {
     if (r.status() < 400) return;
     const u = r.url(), p = new URL(u).pathname, type = r.request().resourceType();
