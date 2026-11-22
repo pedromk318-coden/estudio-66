@@ -1,16 +1,29 @@
-# Cinematic 2D President — teste de personagem
+# Cinematic 2D President — character reference
 
-Novo personagem original para o Estúdio 66. Esta pasta foi criada separadamente; nenhum projeto anterior foi alterado.
+## Reference asset status
+The approved character rig-sheet image was generated in ChatGPT on 2026-11-22. It shows the assembled character at left and expression/body-part studies at right. **The image binary itself has not yet been committed to this repository.** Do not treat this README as proof that the image is present.
 
-## Direção visual
-- Cartoon 2D premium, contorno orgânico e volumes pintados.
-- Paleta quente de pele e cabelo, terno escuro, gravata vermelha e faixa presidencial verde-amarela.
-- Silhueta com proporções estilizadas, rosto expressivo, mãos desenhadas e detalhes de tecido.
-- Luz e sombra integradas ao desenho, pensado para cenários com profundidade e desfoque.
+## Visual identity to preserve
+- Young adult male cartoon politician; swept, voluminous dark-brown hair
+- Warm light skin, large expressive dark eyes, thick brows, angular youthful face
+- Black/dark charcoal tailored suit, white shirt, red tie
+- Green-and-yellow ceremonial sash with a round Brazilian-inspired medal
+- Strong dark ink outlines, polished cel shading and warm highlights
+- Preserve the same silhouette, face, costume, colors and proportions as the approved generated reference
 
-## Rig SVG
-Arquivo: `assets/president.svg`
+## Rig plan
+The generated sheet is a visual guide, not yet a production rig. Rebuild it as layered vector artwork with independently pivoted pieces:
+- head, back hair, fringe, eyes (L/R), brows (L/R), mouth/expression swaps
+- neck, torso, jacket front/back, shirt, tie, sash segments, medal and fringe
+- upper arms, forearms, hands and fingers, with shoulder/elbow/wrist pivots
+- thighs, lower legs and shoes, with hip/knee/ankle pivots
 
-O SVG contém grupos independentes com `data-part` e pontos de articulação `data-pivot`. Partes: cabeça, cabelo traseiro/frontal, olhos, sobrancelhas, nariz, boca, tronco, pescoço, braços superiores, antebraços, mãos, pernas, sapatos, faixa presidencial e sombra.
+## Layering and animation requirements
+- Do not redesign or substitute a generic figure.
+- Preserve occlusion: rear limbs behind torso, front limbs in front where appropriate.
+- Use consistent pivot coordinates and parent-child transforms.
+- Provide neutral, speaking, blink, surprised, angry and smiling face states.
+- Test idle, speaking gesture, arm movement and walk cycle before approval.
 
-**Nota técnica:** é uma primeira versão do rig em camadas. Antes de animação longa, o primeiro render deve validar ordem de sobreposição, encaixe de juntas e deformação em poses extremas.
+## Render status
+No animation render has been validated yet.
