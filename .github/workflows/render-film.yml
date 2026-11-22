@@ -4,24 +4,63 @@ on:
   workflow_dispatch:
     inputs:
       project_path:
-        description: "Project folder (example: films/my-video)"
+        description: "Project 1 (example: films/my-video)"
         required: true
+        type: string
+      project_path_2:
+        description: "Project 2 (optional)"
+        required: false
+        type: string
+      project_path_3:
+        description: "Project 3 (optional)"
+        required: false
         type: string
 
 permissions:
   contents: read
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Build render matrix
+        id: set-matrix
+        env:
+          PROJECT_1: ${{ inputs.project_path }}
+          PROJECT_2: ${{ inputs.project_path_2 }}
+          PROJECT_3: ${{ inputs.project_path_3 }}
+        run: |
+          python - <<'PY'
+          import json, os
+          paths = [os.environ.get(f"PROJECT_{i}", "").strip() for i in range(1, 4)]
+          paths = [p for p in paths if p]
+          if len(paths) != len(set(paths)):
+              raise SystemExit("The same project folder cannot be submitted more than once.")
+          if not paths:
+              raise SystemExit("Provide at least one project folder.")
+          matrix = {"include": [{"project_path": p, "index": i} for i, p in enumerate(paths, 1)]}
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write("matrix=" + json.dumps(matrix) + "\\n")
+          print(f"Preparing {len(paths)} render job(s), maximum 3 in parallel.")
+          PY
+
   render:
+    needs: prepare
     runs-on: ubuntu-latest
     timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     steps:
       - name: Check out project
         uses: actions/checkout@v4
 
       - name: Validate project folder
         env:
-          PROJECT_PATH: ${{ inputs.project_path }}
+          PROJECT_PATH: ${{ matrix.project_path }}
         shell: bash
         run: |
           case "$PROJECT_PATH" in
@@ -70,7 +109,7 @@ jobs:
       - name: Render MP4
         env:
           LIB: ${{ github.workspace }}/biblioteca
-          PROJECT_PATH: ${{ inputs.project_path }}
+          PROJECT_PATH: ${{ matrix.project_path }}
           RENDER_SLOTS: "1"
         shell: bash
         run: |
@@ -83,14 +122,14 @@ jobs:
       - name: Upload rendered video and supporting files
         uses: actions/upload-artifact@v4
         with:
-          name: estudio-66-${{ github.run_number }}
+          name: estudio-66-${{ github.run_number }}-${{ matrix.index }}
           path: |
-            ${{ inputs.project_path }}/*.mp4
-            ${{ inputs.project_path }}/**/*.mp4
-            ${{ inputs.project_path }}/**/*.jpg
-            ${{ inputs.project_path }}/**/*.srt
-            ${{ inputs.project_path }}/TREATMENT.md
-            ${{ inputs.project_path }}/CREDITS
-            ${{ inputs.project_path }}/legenda.txt
+            ${{ matrix.project_path }}/*.mp4
+            ${{ matrix.project_path }}/**/*.mp4
+            ${{ matrix.project_path }}/**/*.jpg
+            ${{ matrix.project_path }}/**/*.srt
+            ${{ matrix.project_path }}/TREATMENT.md
+            ${{ matrix.project_path }}/CREDITS
+            ${{ matrix.project_path }}/legenda.txt
           if-no-files-found: error
           retention-days: 7
