@@ -44,8 +44,8 @@ function background(c,t){
 }
 function microphone(c,t){
   const sway=Math.sin(t*2.1)*5;
-  line(c,[[770+sway,810],[770+sway,1510]],'#3b4355',19);line(c,[[762+sway,840],[778+sway,840]],'#b4a7a0',5);
-  c.save();c.translate(770+sway,790);c.rotate(-.12+Math.sin(t*1.5)*.025);
+  line(c,[[650+sway,810],[650+sway,1510]],'#3b4355',19);line(c,[[762+sway,840],[778+sway,840]],'#b4a7a0',5);
+  c.save();c.translate(650+sway,790);c.rotate(-.12+Math.sin(t*1.5)*.025);
   rr(c,-25,-75,50,104,22,grad(c,-25,-75,50,104,[[0,'#aeb9c6'],[.4,'#47566a'],[1,'#1d2738']]),'#17202e',6);
   for(let i=0;i<5;i++)line(c,[[-15,-59+i*12],[15,-59+i*12]],'rgba(225,232,239,.38)',3);
   c.restore();
@@ -53,7 +53,9 @@ function microphone(c,t){
 function singer(c,t,pose=0){
   c.save();
   const breath=Math.sin(t*2.4)*5, sway=Math.sin(t*1.7)*7;
-  c.translate(520+sway,0);
+  const walk=pose===1?1-ease(t,3.2,6.7):0;
+  const walkX=-200*walk,stepBob=pose===1?Math.abs(Math.sin(t*8))*4:0;
+  c.translate(520+sway+walkX,stepBob);
   // Sombra de contato no palco.
   ell(c,0,1650,235,43,'rgba(5,8,16,.48)');
   // Pernas e botas.
