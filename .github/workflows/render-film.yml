@@ -71,7 +71,6 @@ jobs:
         env:
           LIB: ${{ github.workspace }}/biblioteca
           PROJECT_PATH: ${{ inputs.project_path }}
-          LEMO_ANGLE: swiftshader
           RENDER_SLOTS: "1"
         shell: bash
         run: |
