@@ -42,7 +42,7 @@ jobs:
               raise SystemExit("Provide at least one project folder.")
           matrix = {"include": [{"project_path": p, "index": i} for i, p in enumerate(paths, 1)]}
           with open(os.environ["GITHUB_OUTPUT"], "a") as out:
-              out.write("matrix=" + json.dumps(matrix) + "\\n")
+              out.write("matrix=" + json.dumps(matrix) + "\n")
           print(f"Preparing {len(paths)} render job(s), maximum 3 in parallel.")
           PY
 
