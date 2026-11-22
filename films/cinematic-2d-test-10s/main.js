@@ -11,7 +11,7 @@ const ease=(t,a,b)=>smooth((t-a)/(b-a));
 const noise=(seed)=>{let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;}};
 const paper=document.createElement('canvas');paper.width=512;paper.height=512;
 {const p=paper.getContext('2d'),r=noise(171);p.fillStyle='#33252a';p.fillRect(0,0,512,512);for(let i=0;i<10500;i++){p.globalAlpha=.025+r()*.07;p.fillStyle=r()>.5?'#f5c99b':'#080b15';p.fillRect(r()*512,r()*512,1+r()*2,1+r()*2);}p.globalAlpha=1;}
-const paperPattern=ctx.createPattern(paper,'repeat');
+
 function background(c,t){
   c.fillStyle=grad(c,0,0,0,H,[[0,'#171d2b'],[.36,'#4a3033'],[.72,'#251d2a'],[1,'#10131e']]);c.fillRect(0,0,W,H);
   // Tijolos com variação, juntas e luz quente irregular.
@@ -40,7 +40,7 @@ function background(c,t){
   c.save();c.globalAlpha=.10;c.fillStyle=grad(c,0,190,520,970,[[0,'rgba(255,217,145,.7)'],[1,'rgba(255,217,145,0)']]);path(c,p=>{p.moveTo(420,205);p.lineTo(30,1220);p.lineTo(720,1220);p.closePath();},c.fillStyle);c.restore();
   // Bokeh de luzes distantes.
   for(let i=0;i<18;i++){const x=330+(i*137)%700,y=260+(i*211)%850;glow(c,x,y,18+(i%4)*12,i%3?'#ffb86a':'#86b7d0',.16);}
-  c.save();c.globalAlpha=.10;c.fillStyle=paperPattern;c.fillRect(0,0,W,H);c.restore();
+  c.save();c.globalAlpha=.075;for(let yy=0;yy<H;yy+=512)for(let xx=0;xx<W;xx+=512)c.drawImage(paper,xx,yy);c.restore();
 }
 function microphone(c,t){
   const sway=Math.sin(t*2.1)*5;
