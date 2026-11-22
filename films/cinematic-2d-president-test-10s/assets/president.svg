@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1400" viewBox="0 0 900 1400">
+<title>Presidente — personagem 2D cinematográfico, rig em camadas</title>
+<desc>Personagem original em estilo cartoon 2D premium, com volumes, contornos orgânicos, luz e sombra. Grupos separados por articulação.</desc>
+<defs>
+ <linearGradient id="skin" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#ffd6b1"/><stop offset=".55" stop-color="#eaa77e"/><stop offset="1" stop-color="#b86d55"/></linearGradient>
+ <linearGradient id="suit" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#343047"/><stop offset=".48" stop-color="#201e2b"/><stop offset="1" stop-color="#11131e"/></linearGradient>
+ <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff8e9"/><stop offset="1" stop-color="#c9c5bd"/></linearGradient>
+ <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#68443a"/><stop offset=".5" stop-color="#30252a"/><stop offset="1" stop-color="#171a22"/></linearGradient>
+ <linearGradient id="trouser" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#302d3d"/><stop offset="1" stop-color="#11131d"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe6a0"/><stop offset=".5" stop-color="#c58a36"/><stop offset="1" stop-color="#79501f"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="18"/></filter>
+ <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.5"/></filter>
+ </defs>
+ <ellipse cx="450" cy="1320" rx="235" ry="34" fill="#080b14" opacity=".32" filter="url(#shadow)"/>
+ <!-- rear leg -->
+ <g id="leg-back" data-part="leg-back" data-pivot="385 930">
+  <path d="M348 855 Q405 842 443 870 L432 1110 Q425 1180 407 1242 L332 1240 Q338 1150 326 1080 L310 930Z" fill="url(#trouser)" stroke="#11121a" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M345 900 Q380 925 426 905 L412 1080 Q382 1090 349 1075Z" fill="#4b4657" opacity=".32"/>
+  <path d="M339 1100 Q370 1117 421 1100" fill="none" stroke="#81798a" stroke-width="5" opacity=".35"/>
+ </g>
+ <g id="shoe-back" data-part="shoe-back" data-pivot="370 1220">
+  <path d="M337 1200 Q374 1214 412 1196 L432 1244 Q480 1262 484 1290 Q485 1310 454 1315 L302 1315 Q278 1305 293 1278 Q309 1248 337 1200Z" fill="#211c20" stroke="#100f15" stroke-width="11"/>
+  <path d="M298 1280 Q370 1295 477 1280" fill="none" stroke="#b88b58" stroke-width="7"/>
+  <path d="M345 1227 Q374 1241 408 1226" fill="none" stroke="#76605a" stroke-width="5"/>
+ </g>
+ <!-- front leg -->
+ <g id="leg-front" data-part="leg-front" data-pivot="505 925">
+  <path d="M445 858 Q510 835 565 875 L566 1085 Q555 1170 553 1244 L466 1245 Q471 1150 450 1085 L421 935Z" fill="url(#trouser)" stroke="#11121a" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M474 894 Q515 914 558 900 L545 1070 Q516 1090 481 1071Z" fill="#4b4657" opacity=".35"/>
+  <path d="M465 1110 Q509 1127 558 1107" fill="none" stroke="#81798a" stroke-width="5" opacity=".35"/>
+ </g>
+ <g id="shoe-front" data-part="shoe-front" data-pivot="510 1220">
+  <path d="M469 1200 Q512 1215 554 1197 L573 1246 Q621 1263 626 1290 Q628 1311 594 1317 L435 1317 Q411 1305 429 1278 Q444 1248 469 1200Z" fill="#211c20" stroke="#100f15" stroke-width="11"/>
+  <path d="M433 1282 Q511 1296 618 1281" fill="none" stroke="#b88b58" stroke-width="7"/>
+  <path d="M477 1228 Q515 1240 552 1225" fill="none" stroke="#76605a" stroke-width="5"/>
+ </g>
+ <!-- back arm upper/lower/hand -->
+ <g id="arm-back-upper" data-part="arm-back-upper" data-pivot="330 570">
+  <path d="M345 515 Q285 500 255 555 L192 710 Q178 748 211 765 Q244 781 265 744 L390 615Z" fill="url(#suit)" stroke="#11121a" stroke-width="13" stroke-linejoin="round"/>
+  <path d="M285 555 Q250 635 222 714" fill="none" stroke="#6e6677" stroke-width="8" opacity=".35"/>
+  <path d="M199 713 Q222 734 253 744" fill="none" stroke="#b8a7a0" stroke-width="10"/>
+ </g>
+ <g id="forearm-back" data-part="forearm-back" data-pivot="220 735">
+  <path d="M205 730 Q176 748 190 785 L143 884 Q132 914 162 929 Q190 941 208 908 L270 803 Q287 770 255 746Z" fill="url(#suit)" stroke="#11121a" stroke-width="12"/>
+ </g>
+ <g id="hand-back" data-part="hand-back" data-pivot="165 900">
+  <path d="M156 872 Q142 846 121 859 Q104 872 122 896 Q96 883 84 905 Q75 927 105 940 Q91 962 112 978 Q133 990 151 968 Q161 993 186 982 Q209 970 191 944 L184 900Z" fill="url(#skin)" stroke="#8f5146" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M121 906 Q145 914 155 940 M111 941 Q133 951 146 968" fill="none" stroke="#b86d55" stroke-width="5" stroke-linecap="round"/>
+  <path d="M109 875 Q123 890 137 894" fill="none" stroke="#fff0d9" stroke-width="5" opacity=".65"/>
+ </g>
+ <!-- front arm -->
+ <g id="arm-front-upper" data-part="arm-front-upper" data-pivot="555 565">
+  <path d="M520 520 Q580 496 613 550 L680 700 Q697 739 663 760 Q630 778 609 740 L490 615Z" fill="url(#suit)" stroke="#11121a" stroke-width="13" stroke-linejoin="round"/>
+  <path d="M580 554 Q626 650 659 710" fill="none" stroke="#6e6677" stroke-width="8" opacity=".34"/>
+  <path d="M635 720 Q656 737 682 720" fill="none" stroke="#c9b9b0" stroke-width="10"/>
+ </g>
+ <g id="forearm-front" data-part="forearm-front" data-pivot="660 735">
+  <path d="M660 724 Q694 739 682 781 L742 864 Q762 891 735 915 Q708 937 686 905 L615 807 Q595 775 627 747Z" fill="url(#suit)" stroke="#11121a" stroke-width="12"/>
+ </g>
+ <g id="hand-front" data-part="hand-front" data-pivot="720 900">
+  <path d="M710 874 Q728 848 749 863 Q768 879 748 900 Q776 886 790 910 Q799 934 768 945 Q786 967 764 982 Q742 994 724 970 Q714 994 688 982 Q665 970 683 944 L682 902Z" fill="url(#skin)" stroke="#8f5146" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M746 908 Q723 916 712 941 M758 943 Q735 953 721 970" fill="none" stroke="#b86d55" stroke-width="5" stroke-linecap="round"/>
+ </g>
+ <!-- torso -->
+ <g id="torso" data-part="torso" data-pivot="450 650">
+  <path d="M342 450 Q390 415 455 425 Q530 420 574 468 Q623 565 602 745 L568 916 Q450 970 327 915 L290 740 Q275 555 342 450Z" fill="url(#suit)" stroke="#11121a" stroke-width="15" stroke-linejoin="round"/>
+  <path d="M385 438 Q400 489 450 515 Q500 489 519 438 L536 905 Q453 945 365 905Z" fill="url(#shirt)" stroke="#11121a" stroke-width="8"/>
+  <path d="M342 454 Q386 454 450 515 L393 680 Q330 619 342 454Z" fill="#252434" stroke="#11121a" stroke-width="9"/>
+  <path d="M574 460 Q523 455 450 515 L508 680 Q585 615 574 460Z" fill="#302c3c" stroke="#11121a" stroke-width="9"/>
+  <path d="M428 516 L450 540 L472 516 L465 585 L450 605 L435 585Z" fill="#fff5e5" stroke="#28232b" stroke-width="5"/>
+  <path d="M438 584 Q450 574 462 584 L483 827 L450 858 L417 827Z" fill="#9b2637" stroke="#251a23" stroke-width="7"/>
+  <path d="M417 827 L450 858 L483 827 L450 897Z" fill="#7e1e31" stroke="#251a23" stroke-width="6"/>
+  <path d="M317 660 Q302 760 341 873 M585 660 Q598 756 559 875" fill="none" stroke="#777082" stroke-width="6" opacity=".3"/>
+  <path d="M340 720 Q360 742 382 740 M560 720 Q540 742 518 740" fill="none" stroke="#090d16" stroke-width="7" opacity=".45"/>
+  <circle cx="450" cy="675" r="7" fill="url(#gold)"/><circle cx="450" cy="735" r="7" fill="url(#gold)"/><circle cx="450" cy="795" r="7" fill="url(#gold)"/>
+ </g>
+ <!-- sash -->
+ <g id="sash" data-part="sash">
+  <path d="M330 490 Q360 474 386 495 L570 870 Q580 891 557 905 L529 918 L315 520 Q303 500 330 490Z" fill="#17684c" stroke="#0c2c26" stroke-width="9"/>
+  <path d="M347 493 L370 488 L560 873 L537 887Z" fill="#e6c64e"/>
+  <path d="M515 842 Q552 830 577 866 L602 917 Q578 951 542 943 L510 900Z" fill="#17684c" stroke="#0c2c26" stroke-width="8"/>
+  <circle cx="557" cy="895" r="28" fill="url(#gold)" stroke="#6d4b23" stroke-width="5"/>
+  <path d="M557 874 L565 889 L581 895 L565 903 L557 919 L549 903 L533 895 L549 889Z" fill="#f5e6b3"/>
+ </g>
+ <!-- neck -->
+ <g id="neck" data-part="neck" data-pivot="450 450">
+  <path d="M397 390 Q405 465 382 493 Q450 548 518 493 Q493 456 503 390Z" fill="url(#skin)" stroke="#8f5146" stroke-width="9"/>
+  <path d="M405 452 Q450 480 496 452" fill="none" stroke="#a95f50" stroke-width="6" opacity=".55"/>
+ </g>
+ <!-- head base -->
+ <g id="head" data-part="head" data-pivot="450 300">
+  <path d="M315 270 Q304 139 395 91 Q490 43 568 135 Q618 202 588 342 Q570 451 500 485 Q450 512 397 484 Q317 438 300 339Z" fill="url(#skin)" stroke="#211c26" stroke-width="13" stroke-linejoin="round"/>
+  <path d="M322 345 Q335 410 390 446 M578 345 Q563 410 510 446" fill="none" stroke="#b86d55" stroke-width="7" opacity=".5"/>
+  <ellipse cx="306" cy="315" rx="29" ry="47" fill="url(#skin)" stroke="#211c26" stroke-width="9"/>
+  <ellipse cx="594" cy="315" rx="29" ry="47" fill="url(#skin)" stroke="#211c26" stroke-width="9"/>
+  <path d="M295 304 Q311 312 308 341 M605 304 Q589 312 592 341" fill="none" stroke="#b86d55" stroke-width="6"/>
+ </g>
+ <!-- hair mass behind -->
+ <g id="hair-back" data-part="hair-back" data-pivot="450 180">
+  <path d="M297 300 Q258 191 316 111 Q352 46 425 62 Q490 18 555 77 Q631 140 602 292 Q579 246 560 220 Q535 253 500 226 Q461 261 425 224 Q379 269 350 233 Q323 273 297 300Z" fill="url(#hair)" stroke="#17151d" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M322 167 Q365 80 426 96 M457 80 Q525 68 567 137 M328 217 Q347 177 378 159" fill="none" stroke="#9a6954" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+ </g>
+ <!-- eyes + brows -->
+ <g id="eye-left" data-part="eye-left" data-pivot="380 300">
+  <path d="M338 285 Q376 251 414 284 Q411 324 376 328 Q344 323 338 285Z" fill="#fff8ec" stroke="#2b2024" stroke-width="7"/>
+  <ellipse cx="384" cy="294" rx="14" ry="22" fill="#3a2927"/><circle cx="379" cy="285" r="6" fill="#fff"/>
+ </g>
+ <g id="eye-right" data-part="eye-right" data-pivot="515 300">
+  <path d="M470 284 Q510 251 550 284 Q546 324 511 328 Q478 323 470 284Z" fill="#fff8ec" stroke="#2b2024" stroke-width="7"/>
+  <ellipse cx="516" cy="294" rx="14" ry="22" fill="#3a2927"/><circle cx="511" cy="285" r="6" fill="#fff"/>
+ </g>
+ <g id="brow-left" data-part="brow-left" data-pivot="380 253">
+  <path d="M339 259 Q376 229 412 253" fill="none" stroke="#38252a" stroke-width="13" stroke-linecap="round"/>
+ </g>
+ <g id="brow-right" data-part="brow-right" data-pivot="515 253">
+  <path d="M474 253 Q512 226 550 259" fill="none" stroke="#38252a" stroke-width="13" stroke-linecap="round"/>
+ </g>
+ <g id="nose" data-part="nose" data-pivot="450 335">
+  <path d="M449 300 Q440 344 424 363 Q449 383 480 360 Q486 352 468 345" fill="none" stroke="#a65e50" stroke-width="8" stroke-linecap="round"/>
+  <path d="M432 364 Q452 376 473 363" fill="none" stroke="#8d4c45" stroke-width="5" stroke-linecap="round"/>
+ </g>
+ <g id="mouth" data-part="mouth" data-pivot="450 410">
+  <path d="M409 407 Q450 431 491 407 Q480 453 450 455 Q420 451 409 407Z" fill="#702f3a" stroke="#2b1b23" stroke-width="6"/>
+  <path d="M416 410 Q450 421 484 410 Q469 427 450 427 Q430 426 416 410Z" fill="#fff0dc"/>
+ </g>
+ <!-- hair forelock -->
+ <g id="hair-front" data-part="hair-front" data-pivot="450 160">
+  <path d="M302 197 Q313 102 384 106 Q407 49 470 78 Q536 75 570 148 Q542 129 518 151 Q488 179 457 148 Q423 189 389 157 Q350 205 302 197Z" fill="#392a2c" stroke="#17151d" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M329 163 Q360 112 399 120 M424 105 Q475 91 516 132" fill="none" stroke="#a2765d" stroke-width="8" stroke-linecap="round" opacity=".7"/>
+ </g>
+</svg>
