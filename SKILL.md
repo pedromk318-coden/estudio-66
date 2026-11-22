@@ -36,6 +36,8 @@ Não pergunte sobre computador, sistema operacional, Node, Python, FFmpeg ou ins
 
 ## 2. Direção e criação
 
+- Para cartoon 2D ilustrado/cinematográfico, ler e seguir `PADRAO-ANIMACAO-2D.md` e `CINEMATIC-PIPELINE.md`; o objetivo é animação com atuação, câmera, fotografia, partículas e desenho de som, não apenas formas geométricas ou imagens paradas.
+
 Siga `REELS.md` e os guias em `LIB/`:
 1. Leia por inteiro `LIB/styles/<slug>/STYLE.md`; o estilo é fixo.
 2. Escreva `TREATMENT.md` com três estruturas possíveis e a escolhida antes de abrir a demo.
