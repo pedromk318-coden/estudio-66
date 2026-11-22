@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="1200" viewBox="0 0 800 1200">
+<title>Presidente — personagem 2D dividido em partes para rig</title>
+<desc>Personagem humano original. Cada grupo data-part é uma camada independente; data-pivot informa a origem de rotação em coordenadas do viewBox. O motor pode animar os grupos via SVG transform.</desc>
+<metadata>
+{"format":"estudio66-layered-svg-v1","coordinate_system":"viewBox 800x1200; origin top-left; units px","animation":"animate SVG groups by transform around data-pivot; preserve group hierarchy","parts":["shadow","leg_back_upper","leg_back_lower","shoe_back","leg_front_upper","leg_front_lower","shoe_front","torso","neck","head","hair_back","ear_left","ear_right","eye_left","eye_right","brow_left","brow_right","nose","mouth","hair_front","arm_back_upper","arm_back_lower","hand_back","arm_front_upper","arm_front_lower","hand_front","tie","coat_lapel_left","coat_lapel_right"] }
+</metadata>
+<defs>
+ <linearGradient id="skin" x2="0.8" y2="1"><stop stop-color="#f8cda7"/><stop offset="1" stop-color="#c98262"/></linearGradient>
+ <linearGradient id="coat" x2="1" y2="1"><stop stop-color="#526b7c"/><stop offset="1" stop-color="#243746"/></linearGradient>
+ <linearGradient id="trouser" x2="0" y2="1"><stop stop-color="#344b5c"/><stop offset="1" stop-color="#17232e"/></linearGradient>
+ <linearGradient id="shoe" x2="0" y2="1"><stop stop-color="#493b35"/><stop offset="1" stop-color="#171719"/></linearGradient>
+ <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="15"/></filter>
+ <filter id="smallShadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4"/></filter>
+ </defs>
+ <ellipse data-part="shadow" id="shadow" cx="400" cy="1115" rx="215" ry="32" fill="#090d13" opacity=".34" filter="url(#softShadow)"/>
+ <!-- back legs -->
+ <g id="leg_back_upper" data-part="leg_back_upper" data-pivot="355,825">
+  <path d="M350 820 C315 850 315 905 325 950 L345 1030 Q365 1050 392 1035 L405 950 Q408 875 390 825Z" fill="url(#trouser)" stroke="#211c20" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M344 866 Q370 886 397 864" fill="none" stroke="#71808a" stroke-width="5" opacity=".7"/>
+ </g>
+ <g id="leg_back_lower" data-part="leg_back_lower" data-pivot="360,1010">
+  <path d="M335 990 Q355 1004 390 990 L390 1090 Q370 1110 340 1094Z" fill="url(#trouser)" stroke="#211c20" stroke-width="9"/>
+ </g>
+ <g id="shoe_back" data-part="shoe_back" data-pivot="365,1080">
+  <path d="M345 1070 Q365 1085 392 1070 Q425 1085 430 1110 Q431 1133 398 1140 L310 1140 Q292 1132 305 1110 Q318 1087 345 1070Z" fill="url(#shoe)" stroke="#211c20" stroke-width="10"/>
+  <path d="M315 1113 Q365 1125 420 1111" fill="none" stroke="#b89b78" stroke-width="5"/>
+ </g>
+ <!-- front leg -->
+ <g id="leg_front_upper" data-part="leg_front_upper" data-pivot="450,820">
+  <path d="M410 820 Q465 805 490 835 Q505 880 488 955 L475 1030 Q448 1050 422 1030 L405 950 Q393 875 410 820Z" fill="url(#trouser)" stroke="#211c20" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M407 868 Q447 884 491 860" fill="none" stroke="#71808a" stroke-width="5" opacity=".65"/>
+ </g>
+ <g id="leg_front_lower" data-part="leg_front_lower" data-pivot="450,1010">
+  <path d="M420 990 Q450 1005 480 990 L475 1095 Q447 1110 420 1095Z" fill="url(#trouser)" stroke="#211c20" stroke-width="9"/>
+ </g>
+ <g id="shoe_front" data-part="shoe_front" data-pivot="450,1080">
+  <path d="M423 1072 Q451 1084 480 1070 Q517 1085 523 1111 Q526 1135 492 1142 L405 1140 Q385 1133 398 1110 Q405 1087 423 1072Z" fill="url(#shoe)" stroke="#211c20" stroke-width="10"/>
+  <path d="M407 1114 Q459 1125 512 1110" fill="none" stroke="#b89b78" stroke-width="5"/>
+ </g>
+ <!-- arms behind torso -->
+ <g id="arm_back_upper" data-part="arm_back_upper" data-pivot="300,575">
+  <path d="M310 570 Q270 565 250 605 L210 720 Q205 750 230 762 Q255 770 270 740 L330 635Z" fill="url(#coat)" stroke="#211c20" stroke-width="10" stroke-linejoin="round"/>
+ </g>
+ <g id="arm_back_lower" data-part="arm_back_lower" data-pivot="232,735">
+  <path d="M220 725 Q205 745 220 770 L180 850 Q170 875 193 888 Q215 898 230 875 L272 790 Q283 760 258 742Z" fill="url(#coat)" stroke="#211c20" stroke-width="9"/>
+ </g>
+ <g id="hand_back" data-part="hand_back" data-pivot="195,865">
+  <path d="M185 850 Q168 833 154 847 Q144 861 159 876 Q143 872 137 887 Q133 904 153 909 Q141 922 154 936 Q168 947 181 930 Q189 950 207 943 Q224 934 211 914 L205 878Z" fill="#f4ead9" stroke="#211c20" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M159 883 Q175 891 183 908 M159 908 Q175 913 183 927" fill="none" stroke="#b9a995" stroke-width="4" stroke-linecap="round"/>
+ </g>
+ <g id="arm_front_upper" data-part="arm_front_upper" data-pivot="500,575">
+  <path d="M490 570 Q535 560 557 602 L590 710 Q600 740 574 755 Q548 767 532 735 L470 635Z" fill="url(#coat)" stroke="#211c20" stroke-width="10" stroke-linejoin="round"/>
+ </g>
+ <g id="arm_front_lower" data-part="arm_front_lower" data-pivot="575,735">
+  <path d="M580 720 Q604 735 592 766 L625 840 Q638 866 614 882 Q591 895 576 870 L535 788 Q522 758 547 741Z" fill="url(#coat)" stroke="#211c20" stroke-width="9"/>
+ </g>
+ <g id="hand_front" data-part="hand_front" data-pivot="615,865">
+  <path d="M608 850 Q622 831 638 846 Q650 859 636 876 Q654 869 663 884 Q670 901 649 910 Q665 923 651 938 Q635 950 621 931 Q612 951 594 943 Q577 934 590 914 L590 878Z" fill="#f4ead9" stroke="#211c20" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M638 883 Q621 891 614 908 M640 908 Q623 914 615 928" fill="none" stroke="#b9a995" stroke-width="4" stroke-linecap="round"/>
+ </g>
+ <!-- torso and clothing -->
+ <g id="torso" data-part="torso" data-pivot="400,610">
+  <path d="M316 520 Q340 480 400 480 Q466 480 492 522 Q530 600 515 760 Q505 832 475 866 Q400 894 325 866 Q295 820 285 760 Q270 600 316 520Z" fill="url(#coat)" stroke="#211c20" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M357 500 Q374 535 400 550 Q430 532 448 500 L465 845 Q400 872 335 845Z" fill="#e7ddc9" stroke="#211c20" stroke-width="8"/>
+  <path d="M322 520 Q354 518 400 550 L358 645 Q317 600 322 520Z" fill="#263a49" stroke="#211c20" stroke-width="7"/>
+  <path d="M478 520 Q445 518 400 550 L442 645 Q483 600 478 520Z" fill="#354e60" stroke="#211c20" stroke-width="7"/>
+  <path d="M385 550 Q400 568 415 550 L410 600 L400 614 L390 600Z" fill="#f4ead9" stroke="#211c20" stroke-width="5"/>
+  <path d="M391 610 Q400 600 409 610 L424 780 Q400 800 376 780Z" fill="#a64e49" stroke="#211c20" stroke-width="6"/>
+  <path d="M377 780 L400 805 L423 780 L400 835Z" fill="#a64e49" stroke="#211c20" stroke-width="5"/>
+  <g fill="#d7ad68"><circle cx="400" cy="670" r="6"/><circle cx="400" cy="715" r="6"/><circle cx="400" cy="760" r="6"/></g>
+  <path d="M315 600 Q300 700 325 820 M485 600 Q500 700 475 820" fill="none" stroke="#81909a" stroke-width="5" opacity=".45"/>
+ </g>
+ <!-- neck -->
+ <g id="neck" data-part="neck" data-pivot="400,465">
+  <path d="M360 420 Q365 480 350 510 Q400 550 450 510 Q435 475 440 420Z" fill="url(#skin)" stroke="#211c20" stroke-width="9"/>
+ </g>
+ <!-- head and ears -->
+ <g id="head" data-part="head" data-pivot="400,315">
+  <path d="M295 290 Q285 170 365 125 Q445 85 505 165 Q535 225 510 350 Q490 430 440 458 Q400 480 360 458 Q300 420 285 340Z" fill="url(#skin)" stroke="#211c20" stroke-width="11" stroke-linejoin="round"/>
+  <path d="M310 355 Q330 405 365 420 M490 355 Q470 405 435 420" fill="none" stroke="#b9785d" stroke-width="5" opacity=".7"/>
+  <ellipse cx="292" cy="310" rx="27" ry="40" fill="url(#skin)" stroke="#211c20" stroke-width="8"/>
+  <ellipse cx="508" cy="310" rx="27" ry="40" fill="url(#skin)" stroke="#211c20" stroke-width="8"/>
+  <path d="M292 300 Q305 310 298 332 M508 300 Q495 310 502 332" fill="none" stroke="#a96852" stroke-width="5"/>
+  <path d="M310 355 Q335 372 355 359 M445 359 Q470 372 490 355" fill="none" stroke="#cf8b6a" stroke-width="4" opacity=".65"/>
+ </g>
+ <!-- eyes -->
+ <g id="eye_left" data-part="eye_left" data-pivot="355,280">
+  <path d="M320 275 Q350 250 380 275 Q377 310 350 312 Q323 308 320 275Z" fill="#fff9ed" stroke="#211c20" stroke-width="6"/>
+  <ellipse cx="357" cy="285" rx="11" ry="18" fill="#382a28"/><circle cx="353" cy="278" r="5" fill="#fff"/>
+ </g>
+ <g id="eye_right" data-part="eye_right" data-pivot="445,280">
+  <path d="M420 275 Q450 250 480 275 Q477 310 450 312 Q423 308 420 275Z" fill="#fff9ed" stroke="#211c20" stroke-width="6"/>
+  <ellipse cx="447" cy="285" rx="11" ry="18" fill="#382a28"/><circle cx="443" cy="278" r="5" fill="#fff"/>
+ </g>
+ <g id="brow_left" data-part="brow_left" data-pivot="355,245">
+  <path d="M322 248 Q350 225 379 246" fill="none" stroke="#382a28" stroke-width="11" stroke-linecap="round"/>
+ </g>
+ <g id="brow_right" data-part="brow_right" data-pivot="445,245">
+  <path d="M421 246 Q450 225 478 248" fill="none" stroke="#382a28" stroke-width="11" stroke-linecap="round"/>
+ </g>
+ <g id="nose" data-part="nose" data-pivot="400,305">
+  <path d="M397 290 Q390 325 380 340 Q397 354 418 339 Q422 333 411 329" fill="none" stroke="#a96852" stroke-width="7" stroke-linecap="round"/>
+  <path d="M386 342 Q400 350 413 341" fill="none" stroke="#925943" stroke-width="5" stroke-linecap="round"/>
+ </g>
+ <g id="mouth" data-part="mouth" data-pivot="400,380">
+  <path d="M370 380 Q400 397 430 380 Q420 414 400 414 Q380 410 370 380Z" fill="#6b3034" stroke="#211c20" stroke-width="5"/>
+  <path d="M375 382 Q400 390 425 382 Q415 394 400 394 Q385 393 375 382Z" fill="#fff0dc"/>
+  <path d="M384 406 Q400 414 416 406" fill="none" stroke="#d28b79" stroke-width="4"/>
+ </g>
+ <!-- hair behind + sculpted forelock -->
+ <g id="hair_back" data-part="hair_back" data-pivot="400,180">
+  <path d="M286 300 Q250 195 300 125 Q330 65 400 75 Q465 42 510 112 Q555 175 515 295 Q493 248 475 225 Q447 252 417 225 Q380 258 350 226 Q320 267 286 300Z" fill="#302629" stroke="#211c20" stroke-width="11" stroke-linejoin="round"/>
+ </g>
+ <g id="hair_front" data-part="hair_front" data-pivot="400,150">
+  <path d="M295 190 Q310 100 380 112 Q400 63 450 98 Q492 110 500 170 Q462 142 440 158 Q412 183 385 155 Q350 193 295 190Z" fill="#4b3533" stroke="#211c20" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M315 163 Q340 118 375 125 M415 113 Q452 105 476 151" fill="none" stroke="#805044" stroke-width="7" stroke-linecap="round"/>
+ </g>
+ <g id="coat_lapel_left" data-part="coat_lapel_left" data-pivot="350,540">
+  <path d="M322 520 Q350 530 400 550 L358 645 Q317 600 322 520Z" fill="#263a49" stroke="#211c20" stroke-width="7"/>
+ </g>
+ <g id="coat_lapel_right" data-part="coat_lapel_right" data-pivot="450,540">
+  <path d="M478 520 Q445 518 400 550 L442 645 Q483 600 478 520Z" fill="#354e60" stroke="#211c20" stroke-width="7"/>
+ </g>
+</svg>
