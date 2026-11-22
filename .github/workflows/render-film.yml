@@ -67,6 +67,12 @@ jobs:
           sudo ln -sf "$(python -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" /usr/local/bin/ffmpeg
           ffmpeg -version | head -n 1
 
+      - name: Install Kokoro voice model
+        working-directory: biblioteca
+        run: |
+          .venv/bin/python -m pip install -r requirements-voice.txt
+          sh tools/fetch.sh voice
+
       - name: Render MP4
         env:
           LIB: ${{ github.workspace }}/biblioteca
