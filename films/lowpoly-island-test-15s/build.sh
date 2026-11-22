@@ -40,9 +40,8 @@ s = p.read_text().replace(
 p.write_text(s)
 PY
 
-# Voice, timeline, original score, foley/ambience, subtitles and final portrait render.
-"$LIB/.venv/bin/python" "$LIB/core/tts/tts.py" "$D/lines.json" "$D/voices"
-"$LIB/.venv/bin/python" "$LIB/core/tts/asr_check.py" "$D/lines.json" "$D/voices"
+# Silent version: no narration or voice-model dependency.
+# Timeline, original score, foley/ambience and final portrait render.
 node "$LIB/core/render/events.mjs" "$D"
 "$LIB/.venv/bin/python" "$D/music/score.py"
 "$LIB/.venv/bin/python" "$D/music/check.py"
