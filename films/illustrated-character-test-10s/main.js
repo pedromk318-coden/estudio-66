@@ -101,7 +101,7 @@ function character(t,mode='full'){
   ellipse(x+look-3,-893,3,4,'#fff');
  }
  // nose with bridge and nostril
- path(p=>{p.moveTo(-4,-880);p.bezierCurveTo(-8,-858,-19,-839,-11,-828);p.quadraticCurveTo(4,-817,24,-833);p.quadraticCurveTo(29,-840,17,-845)},'none',skinShade,7);
+ path(p=>{p.moveTo(-4,-880);p.bezierCurveTo(-8,-858,-19,-839,-11,-828);p.quadraticCurveTo(4,-817,24,-833);p.quadraticCurveTo(29,-840,17,-845)},null,skinShade,7);
  line(p=>{p.moveTo(-9,-827);p.quadraticCurveTo(3,-819,15,-829)},'#925d4d',5);
  // mouth changes between smile and speaking
  const talk=Math.sin(t*8)>.25, mouthY=-790;
