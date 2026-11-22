@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estúdio 66 — Character Quality Lab</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#100d18}svg{display:block;width:100vw;height:100vh}
+</style></head><body>
+<svg id="film" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg" aria-label="Cantora em um pequeno palco de bar">
+<defs>
+ <linearGradient id="wall" x2="0" y2="1"><stop stop-color="#3b2937"/><stop offset=".52" stop-color="#6c4a43"/><stop offset="1" stop-color="#1d1b2b"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#ffc078"/><stop offset=".48" stop-color="#e99050"/><stop offset="1" stop-color="#a84f39"/></linearGradient>
+ <linearGradient id="skinLight" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd39a"/><stop offset="1" stop-color="#e78b4d"/></linearGradient>
+ <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#83a9d7"/><stop offset=".42" stop-color="#456a9e"/><stop offset="1" stop-color="#1b345b"/></linearGradient>
+ <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4b3540"/><stop offset=".55" stop-color="#241c2b"/><stop offset="1" stop-color="#100f1b"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0a1"/><stop offset=".45" stop-color="#d59a32"/><stop offset="1" stop-color="#7b461c"/></linearGradient>
+ <radialGradient id="lampGlow"><stop stop-color="#fff5c8" stop-opacity=".95"/><stop offset=".16" stop-color="#ffc96b" stop-opacity=".48"/><stop offset="1" stop-color="#ff9b42" stop-opacity="0"/></radialGradient>
+ <radialGradient id="vignette"><stop offset=".45" stop-color="#05030b" stop-opacity="0"/><stop offset="1" stop-color="#05030b" stop-opacity=".78"/></radialGradient>
+ <pattern id="cloth" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M0 0L18 18M18 0L0 18" stroke="#dce8ff" stroke-opacity=".09" stroke-width="1"/><circle cx="9" cy="9" r="1" fill="#fff" opacity=".09"/></pattern>
+ <pattern id="brick" width="150" height="76" patternUnits="userSpaceOnUse"><path d="M0 1H150M0 75H150M75 1V38M0 38H150M0 38V75" fill="none" stroke="#c58b6c" stroke-opacity=".19" stroke-width="5"/></pattern>
+ <filter id="softBlur"><feGaussianBlur stdDeviation="18"/></filter>
+ <filter id="bgBlur"><feGaussianBlur stdDeviation="5"/></filter>
+ <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="18"/><feOffset dy="18"/><feComponentTransfer><feFuncA type="linear" slope=".42"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <filter id="glow"><feGaussianBlur stdDeviation="22" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="2" seed="9"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .13"/></feComponentTransfer><feBlend in="SourceGraphic" mode="soft-light"/></filter>
+ <filter id="motion"><feGaussianBlur stdDeviation="5 1"/></filter>
+ <clipPath id="frame"><rect width="1080" height="1920"/></clipPath>
+</defs>
+<g clip-path="url(#frame)">
+ <g id="camera">
+  <!-- distant bar, intentionally painted as separate depth planes -->
+  <rect width="1080" height="1920" fill="url(#wall)"/>
+  <g opacity=".55" filter="url(#bgBlur)"><rect x="-40" y="210" width="1160" height="960" fill="url(#brick)"/></g>
+  <path d="M0 1240Q250 1170 510 1230T1080 1195V1920H0Z" fill="#171727"/>
+  <path d="M0 1280Q300 1210 1080 1260" fill="none" stroke="#b47a53" stroke-opacity=".3" stroke-width="10"/>
+  <g id="backstage" filter="url(#bgBlur)">
+   <rect x="40" y="430" width="250" height="650" rx="12" fill="#1a1827" stroke="#b87b4c" stroke-width="12"/>
+   <rect x="65" y="455" width="200" height="600" fill="#392536"/>
+   <path d="M80 470V1030M120 470V1030M160 470V1030M200 470V1030M240 470V1030" stroke="#8e4c42" stroke-width="18" opacity=".5"/>
+   <rect x="790" y="500" width="245" height="560" rx="12" fill="#17283c" stroke="#b57a4e" stroke-width="12"/>
+   <rect x="812" y="522" width="201" height="516" fill="#263d58"/>
+   <path d="M912 522V1038M812 790H1013" stroke="#9dc2dc" stroke-opacity=".48" stroke-width="12"/>
+   <g fill="#f8b35b"><rect x="840" y="1110" width="38" height="110" rx="12"/><rect x="905" y="1085" width="38" height="135" rx="12"/><rect x="970" y="1120" width="38" height="100" rx="12"/></g>
+   <g fill="#ffb35a" opacity=".5"><circle cx="855" cy="1100" r="52"/><circle cx="920" cy="1075" r="56"/><circle cx="985" cy="1110" r="48"/></g>
+  </g>
+  <!-- stage curtains -->
+  <g opacity=".9"><path d="M0 0H190Q120 220 175 470T105 1020Q170 1240 95 1480H0Z" fill="#632c3b"/><path d="M0 0H70Q35 420 85 800T48 1450H0Z" fill="#9b4050" opacity=".5"/><path d="M1080 0H930Q1010 300 945 640T1010 1200Q950 1430 1040 1600H1080Z" fill="#512638"/></g>
+  <!-- warm practical light and volumetric beam -->
+  <path id="beam" d="M480 180L650 180L900 1470L150 1470Z" fill="#ffc76b" opacity=".09"/>
+  <ellipse cx="545" cy="225" rx="420" ry="380" fill="url(#lampGlow)"/>
+  <path d="M540 0V182" stroke="#251d29" stroke-width="12"/><rect x="500" y="164" width="80" height="48" rx="8" fill="#4a342e"/>
+  <circle id="bulb" cx="540" cy="255" r="42" fill="#fff4c9" filter="url(#glow)"/>
+  <circle cx="540" cy="255" r="180" fill="url(#lampGlow)"/>
+  <!-- background audience silhouettes -->
+  <g opacity=".7" filter="url(#bgBlur)" fill="#171522"><ellipse cx="115" cy="1390" rx="95" ry="140"/><circle cx="115" cy="1255" r="78"/><ellipse cx="980" cy="1400" rx="120" ry="155"/><circle cx="980" cy="1260" r="82"/></g>
+  <!-- microphone stand -->
+  <path d="M580 940L565 1900" stroke="#282c3b" stroke-width="20" stroke-linecap="round"/><path d="M575 940L560 1900" stroke="#aab2bd" stroke-width="5" opacity=".55"/>
+  <g id="singer" filter="url(#shadow)">
+   <!-- rear hair silhouette -->
+   <path d="M300 700Q260 520 365 420Q450 335 580 365Q740 350 805 495Q870 620 770 810L735 1030L330 1010Z" fill="url(#hair)" stroke="#17131e" stroke-width="13"/>
+   <!-- neck -->
+   <path d="M455 850L450 1010Q530 1080 615 1005L602 840Z" fill="url(#skin)" stroke="#8c493a" stroke-width="8"/>
+   <!-- body / jacket -->
+   <path d="M350 1010Q420 960 480 980L610 980Q710 975 775 1060L900 1530Q870 1660 810 1710L300 1710Q225 1640 230 1510L270 1110Q300 1040 350 1010Z" fill="url(#jacket)" stroke="#192b4a" stroke-width="16"/>
+   <path d="M350 1010Q420 960 480 980L540 1110L460 1225L330 1055Z" fill="#a7c2df" stroke="#29466f" stroke-width="10"/>
+   <path d="M610 980Q710 975 775 1060L650 1210L555 1110Z" fill="#6f91bd" stroke="#29466f" stroke-width="10"/>
+   <path d="M480 980L540 1110L610 980L650 1210L555 1340L460 1225Z" fill="#172c4c"/>
+   <path d="M350 1010Q420 960 480 980L610 980Q710 975 775 1060L900 1530Q870 1660 810 1710L300 1710Q225 1640 230 1510L270 1110Q300 1040 350 1010Z" fill="url(#cloth)" opacity=".9"/>
+   <!-- jacket seams and buttons -->
+   <path d="M540 1110L540 1690M390 1100Q330 1270 345 1580M700 1090Q775 1300 770 1580" fill="none" stroke="#d3e0f1" stroke-opacity=".45" stroke-width="7"/>
+   <g fill="url(#gold)" stroke="#68472c" stroke-width="4"><circle cx="550" cy="1290" r="10"/><circle cx="550" cy="1370" r="10"/><circle cx="550" cy="1450" r="10"/><circle cx="550" cy="1530" r="10"/></g>
+   <path d="M390 1125L460 1190M690 1120L630 1190" stroke="#d9e6f5" stroke-width="6" opacity=".45"/>
+   <!-- left arm -->
+   <g id="leftArm" transform="rotate(0 340 1080)">
+    <path d="M340 1080Q270 1150 230 1320L195 1505Q185 1580 240 1595Q292 1600 310 1530L390 1280Q420 1160 390 1100Z" fill="url(#jacket)" stroke="#1b2e4e" stroke-width="15"/>
+    <path d="M220 1490Q245 1520 303 1510" fill="none" stroke="#b8cbe3" stroke-width="7" opacity=".55"/>
+    <path d="M210 1550Q180 1605 210 1640Q245 1665 280 1625L300 1575" fill="url(#skin)" stroke="#8b4939" stroke-width="8"/>
+   </g>
+   <!-- right arm holding mic -->
+   <g id="rightArm" transform="rotate(0 720 1080)">
+    <path d="M720 1080Q795 1110 830 1230L810 1380Q790 1440 735 1420Q695 1400 710 1340L690 1210Q675 1130 720 1080Z" fill="url(#jacket)" stroke="#1b2e4e" stroke-width="15"/>
+    <path d="M760 1370Q790 1390 825 1350L860 1295Q890 1265 915 1295Q935 1325 900 1365L845 1430Q790 1480 740 1435Z" fill="url(#skin)" stroke="#914b38" stroke-width="9"/>
+    <path d="M850 1300Q885 1270 905 1305" fill="none" stroke="#ffd19b" stroke-width="8" stroke-linecap="round"/>
+   </g>
+   <!-- face -->
+   <path d="M330 610Q330 455 445 420Q590 365 715 465Q795 540 760 730Q735 900 580 940Q430 940 355 810Q315 730 330 610Z" fill="url(#skin)" stroke="#8d4a3b" stroke-width="14"/>
+   <path d="M350 670Q365 810 460 880Q390 855 350 780Z" fill="#9b4d3d" opacity=".22"/>
+   <ellipse cx="455" cy="720" rx="24" ry="35" fill="#3c2530"/><ellipse cx="640" cy="720" rx="24" ry="35" fill="#3c2530"/>
+   <circle cx="462" cy="709" r="8" fill="#fff0d8"/><circle cx="647" cy="709" r="8" fill="#fff0d8"/>
+   <path d="M405 660Q450 632 490 654M595 650Q640 625 685 650" fill="none" stroke="#34232b" stroke-width="18" stroke-linecap="round"/>
+   <path d="M550 735Q570 775 545 792" fill="none" stroke="#a85a43" stroke-width="12" stroke-linecap="round"/>
+   <ellipse cx="430" cy="785" rx="38" ry="18" fill="#ef8d72" opacity=".36"/><ellipse cx="670" cy="785" rx="38" ry="18" fill="#ef8d72" opacity=".36"/>
+   <g id="mouth"><path d="M505 830Q560 805 620 830Q570 880 520 850Z" fill="#562b34"/><path d="M520 833Q565 824 607 835" stroke="#fff0d8" stroke-width="8" fill="none"/></g>
+   <path id="mouthClosed" d="M510 842Q565 852 615 837" fill="none" stroke="#6e3037" stroke-width="13" stroke-linecap="round" opacity="0"/>
+   <!-- ears and gold hoops -->
+   <ellipse cx="322" cy="735" rx="34" ry="56" fill="url(#skinLight)" stroke="#8d4a3b" stroke-width="8"/><ellipse cx="775" cy="735" rx="34" ry="56" fill="url(#skinLight)" stroke="#8d4a3b" stroke-width="8"/>
+   <circle cx="315" cy="790" r="42" fill="none" stroke="url(#gold)" stroke-width="15"/><circle cx="782" cy="790" r="42" fill="none" stroke="url(#gold)" stroke-width="15"/>
+   <!-- curly hair cap, layered curls with highlight strokes -->
+   <path d="M320 650Q285 525 375 440Q450 350 570 380Q715 360 785 500Q815 570 775 670Q740 590 685 570Q610 530 560 575Q475 520 415 590Q375 630 320 650Z" fill="url(#hair)" stroke="#17131e" stroke-width="13"/>
+   <g fill="#342738" stroke="#66505a" stroke-width="7">
+    <circle cx="365" cy="535" r="48"/><circle cx="415" cy="470" r="55"/><circle cx="480" cy="425" r="58"/><circle cx="550" cy="412" r="58"/><circle cx="620" cy="430" r="58"/><circle cx="690" cy="475" r="58"/><circle cx="745" cy="540" r="52"/>
+    <circle cx="345" cy="610" r="42"/><circle cx="405" cy="570" r="48"/><circle cx="475" cy="535" r="48"/><circle cx="550" cy="520" r="52"/><circle cx="625" cy="535" r="50"/><circle cx="700" cy="570" r="48"/><circle cx="765" cy="615" r="42"/>
+   </g>
+   <g fill="none" stroke="#9a7b80" stroke-width="8" stroke-linecap="round" opacity=".65">
+    <path d="M340 530q-8-35 24-45M390 466q-8-38 30-48M455 418q-4-36 35-42M530 395q0-32 37-32M605 412q5-34 40-24M678 455q18-30 44-8M730 525q22-23 34 6"/>
+    <path d="M380 600q-3-28 27-32M455 552q-4-28 28-32M535 515q-1-27 31-29M620 530q8-25 34-21M700 565q12-22 31-8"/>
+   </g>
+   <!-- small hair band -->
+   <path d="M435 390Q550 330 675 395" stroke="#bd4d52" stroke-width="25" fill="none" stroke-linecap="round"/><path d="M440 386Q555 340 670 390" stroke="#ff9a83" stroke-width="7" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- mic: front layer, held at mouth -->
+  <g id="mic" transform="rotate(-18 720 860)">
+   <path d="M720 880L720 1130" stroke="#222b3d" stroke-width="25" stroke-linecap="round"/>
+   <path d="M720 885L720 1125" stroke="#9da9bb" stroke-width="7" stroke-linecap="round"/>
+   <rect x="688" y="820" width="64" height="105" rx="30" fill="#252d3d" stroke="#aab6c6" stroke-width="8"/>
+   <path d="M698 842L742 842M696 860L744 860M698 878L742 878" stroke="#c2ccd7" stroke-width="5" opacity=".75"/>
+   <path d="M720 920L720 960" stroke="#111827" stroke-width="16"/>
+  </g>
+  <!-- floating dust, drawn procedurally -->
+  <g id="particles"></g>
+  <!-- subtitles -->
+  <g id="captions" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900">
+   <text id="cap1" x="540" y="1770" font-size="76" fill="#fff8e8" stroke="#17111a" stroke-width="17" paint-order="stroke" letter-spacing="1">NINGUÉM ESCUTAVA</text>
+   <text id="cap2" x="540" y="1770" font-size="76" fill="#ffd17d" stroke="#17111a" stroke-width="17" paint-order="stroke" opacity="0">ATÉ ELA CANTAR</text>
+  </g>
+  <rect width="1080" height="1920" fill="url(#vignette)" pointer-events="none"/>
+  <rect width="1080" height="1920" filter="url(#grain)" opacity=".12" pointer-events="none"/>
+ </g>
+</g>
+</svg>
+<script>
+const $=id=>document.getElementById(id), NS='http://www.w3.org/2000/svg';
+const particles=$('particles');
+let seed=441; const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
+for(let i=0;i<95;i++){const c=document.createElementNS(NS,'circle');c.setAttribute('cx',String(90+rnd()*900));c.setAttribute('cy',String(320+rnd()*1330));c.setAttribute('r',String(.8+rnd()*3.4));c.setAttribute('fill',i%4?'#ffdba4':'#fff4d0');c.setAttribute('opacity',String(.12+rnd()*.5));c.dataset.x=c.getAttribute('cx');c.dataset.y=c.getAttribute('cy');c.dataset.s=String(.25+rnd()*.8);particles.appendChild(c)}
+window.DUR=10; window.READY=true;
+window.render=(t)=>{
+ const f=Math.max(0,Math.min(10,t)), beat=Math.sin(f*2.2), breath=Math.sin(f*2.4);
+ $('camera').setAttribute('transform',`translate(${Math.sin(f*.42)*12} ${Math.cos(f*.36)*8}) scale(${1+Math.min(f/10,.025)}) translate(-12 -8)`);
+ $('singer').setAttribute('transform',`translate(0 ${Math.sin(f*2.2)*8}) rotate(${Math.sin(f*1.1)*1.2} 540 1000)`);
+ $('leftArm').setAttribute('transform',`rotate(${-7+Math.sin(f*1.8)*8} 340 1080)`);
+ $('rightArm').setAttribute('transform',`rotate(${-8+Math.sin(f*2.3)*5} 720 1080)`);
+ $('mic').setAttribute('transform',`rotate(${-18+Math.sin(f*2.1)*3} 720 860)`);
+ const open=(Math.sin(f*10.5)>-.15 && f>1.1 && f<8.8);
+ $('mouth').setAttribute('opacity',open?'1':'0');$('mouthClosed').setAttribute('opacity',open?'0':'1');
+ const blink=(f%3.7<.13); document.querySelectorAll('#singer ellipse').forEach((e)=>{if(e.getAttribute('ry')==='35')e.setAttribute('ry',blink?'3':'35')});
+ $('cap1').setAttribute('opacity',f<4.8?'1':'0');$('cap2').setAttribute('opacity',f>=4.8&&f<9.4?'1':'0');
+ $('bulb').setAttribute('opacity',String(.88+.12*Math.sin(f*7)));
+ $('beam').setAttribute('opacity',String(.065+.025*Math.sin(f*2)));
+ [...particles.children].forEach((p,i)=>{const y=Number(p.dataset.y)-f*(10+Number(p.dataset.s)*16);p.setAttribute('cy',String(320+((y-320+1400)%1400)));p.setAttribute('cx',String(Number(p.dataset.x)+Math.sin(f*.8+i)*10));});
+ $('camera').style.filter=f>4.8&&f<5.15?'url(#motion)':'none';
+};
+window.render(0);
+</script></body></html>
