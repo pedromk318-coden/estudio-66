@@ -56,6 +56,9 @@ p.write_text(s)
 # Prevent stale island title/captions and ensure font loading cannot block rendering.
 p = d / "main.js"
 s = p.read_text()
+s = s.replace("THE ISLAND THAT GREW", "THE DESERT AWAKES")
+s = s.replace("a low-poly island film", "a low-poly desert film")
+s = s.replace("LOW-POLY ISLAND", "LOW-POLY DESERT")
 s = s.replace("await document.fonts.load('600 78px \"Josefin Sans\"'); await document.fonts.load('300 34px \"Josefin Sans\"'); await document.fonts.load('600 44px Quicksand'); await document.fonts.load('500 30px Quicksand');",
               "await Promise.allSettled([document.fonts.load('600 78px \"Josefin Sans\"'), document.fonts.load('300 34px \"Josefin Sans\"'), document.fonts.load('600 44px Quicksand'), document.fonts.load('500 30px Quicksand')]);")
 p.write_text(s)
