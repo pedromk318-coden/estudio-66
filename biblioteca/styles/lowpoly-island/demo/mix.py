@@ -100,7 +100,7 @@ tt = t_(DUR)
 # waves: low-passed brown noise + slow swell + random breakers on the shore
 w = lp(brown(DUR), 650); w2 = lp(brown(DUR), 650)
 swell = .6 + .4 * np.sin(2 * np.pi * tt / 6.3) * np.sin(2 * np.pi * tt / 9.1 + 1)
-wl = np.interp(tt, [0, 6, 21, 31, 36.25, 41, 48.75, DUR], [1.0, .8, .55, .9, .75, .6, .7, .5])   # waves are more prominent at night
+wl = np.interp(tt, [0, 3, 6, 9, 12, DUR], [1.0, .8, .65, .9, .7, .5])   # waves are more prominent at night
 amb[:, 0] += norm(w) * swell * wl * db(-22); amb[:, 1] += norm(w2) * swell[::-1] * wl * db(-22)
 for k in range(26):
     s = rng.uniform(0, DUR - 1.5); d = rng.uniform(.8, 1.4); x = bp(nz(d), 500, 3500) * np.sin(np.pi * t_(d) / d) ** 3
