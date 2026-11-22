@@ -14,8 +14,12 @@ Uma cantora se prepara nos bastidores de um pequeno bar numa noite chuvosa. A ce
 ## Pipeline
 - 1080 × 1920, 24 fps, 10 segundos.
 - Renderização 2D em Canvas, compatível com runner sem GPU.
-- Motion blur temporal com duas amostras determinísticas por frame.
-- Partículas determinísticas, chuva, bloom falso por gradientes, vinheta e grão fino.
+- Motion blur temporal adaptativo: 2 amostras nos planos estáveis e 3 durante a entrada/ação.
+- Fundo com soft-focus separado do personagem para reforçar a profundidade de campo.
+- Feixes volumétricos simulados, bokeh em camadas, flare anamórfico discreto e partículas determinísticas.
+- Chuva, brasas, poeira, streaks direcionais nas transições, bloom por gradientes, vinheta e grão fino.
+- Atuação ampliada: balanço de corpo, respiração, inclinação de cabeça, braços com arcos maiores e passos mais legíveis.
+- Câmera com aproximações, deslocamento lateral e handheld controlado; blur concentrado nos trechos de movimento.
 - Mix estéreo original a 48 kHz: ambiência de chuva, música ambiente sintetizada e efeitos Foley.
 - Masterização pelo mux.sh do Estúdio 66 a -14 LUFS.
 
